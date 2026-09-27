@@ -1001,7 +1001,7 @@ forgot to call mom back yesterday`;
       } else {
         const timeTag = task.display_time_tag || (task.predicted_time === 'night' ? 'Best for late night' : `Best around ${task.predicted_time || 'now'}`);
         const locTag = task.display_location || (task.predicted_location === 'work' ? 'Campus' : (task.predicted_location ? task.predicted_location.charAt(0).toUpperCase() + task.predicted_location.slice(1) : 'Home'));
-        const confStr = task.time_confidence ? ` · ${Math.round(task.time_confidence * 100)}% fit` : '';
+        const confStr = (!task.stated_time && task.time_confidence) ? ` · ${Math.round(task.time_confidence * 100)}% fit` : '';
 
         pillEl.innerHTML = `
           <span class="font-medium text-primary">🌿 ${timeTag}</span>
@@ -1017,7 +1017,7 @@ forgot to call mom back yesterday`;
       const actionLabel = document.getElementById('focusTaskActionLabel');
 
       const action = task.action;
-      const isScreenAway = isRest || (task.title && /sleep|wind down|read before bed|put phone|bedtime|rest|breathe|walk|stretch|unwind|nap/i.test(task.title));
+      const isScreenAway = isRest || (!task.named_place && task.title && /\b(sleep|wind down|read before bed|put phone|bedtime|rest|breathe|stretch|unwind|nap)\b/i.test(task.title));
 
       if (action && action.type && !isScreenAway && actionContainer && actionBtn && actionLabel) {
         if (action.type === 'email') {

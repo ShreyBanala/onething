@@ -68,7 +68,7 @@ def rate_limit(requests_per_minute: int = 10):
 
 # Configuration
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite-preview")
 
 # Load ML Models with graceful fallback
 LOCATION_MODEL_PATH = os.path.join("models", "location_model.joblib")
@@ -249,11 +249,30 @@ def format_display_time_tag(time_bucket: str, current_bucket: str = "") -> str:
     return mapping.get(time_bucket, f"Best around {time_bucket}")
 
 
+def format_12h_time(time_str: str) -> str:
+    """
+    Converts 24-hour 'HH:MM' string to 12-hour format like '7:00 AM' or '4:00 PM'.
+    """
+    if not time_str:
+        return ""
+    try:
+        parts = time_str.strip().split(":")
+        h = int(parts[0])
+        m = int(parts[1]) if len(parts) > 1 else 0
+        suffix = "PM" if h >= 12 else "AM"
+        h12 = h % 12
+        if h12 == 0:
+            h12 = 12
+        return f"{h12}:{m:02d} {suffix}"
+    except Exception:
+        return time_str
+
+
 def tag_and_rank_tasks(tasks, local_hour=None):
     """
-    Tags tasks with ML predictions (time, location, confidences)
+    Tags tasks with ML predictions (time, location, confidences) or explicit times/places,
     and sorts them so tasks matching the current local hour come first.
-    If models are missing, falls back to Gemini's natural order.
+    If models are missing, falls back gracefully.
     """
     if local_hour is None:
         local_hour = datetime.now().hour
@@ -264,29 +283,67 @@ def tag_and_rank_tasks(tasks, local_hour=None):
 
     current_bucket = hour_to_bucket(local_hour)
 
-    if loc_model is not None and time_model is not None:
-        for task in tasks:
-            title = task.get("title", "")
+    for i, task in enumerate(tasks):
+        if "_orig_idx" not in task:
+            task["_orig_idx"] = i
 
-            # Predict Location
-            try:
-                loc_pred = loc_model.predict([title])[0]
-                loc_proba = float(np.max(loc_model.predict_proba([title])[0]))
-            except Exception:
+        title = task.get("title", "")
+        stated_time = task.get("stated_time")
+        named_place = task.get("named_place")
+
+        # 1. Location handling
+        # Rule 3: If a task has a named_place like a store, café, or pharmacy,
+        # set its location to "Public" instead of the ML prediction,
+        # and add a "maps" Directions action using that place (include "near UMBC" in the search query).
+        if named_place:
+            task["predicted_location"] = "public"
+            task["display_location"] = "Public"
+            task["location_confidence"] = None
+            clean_place = str(named_place).strip()
+            query_str = f"{clean_place} near UMBC" if "near umbc" not in clean_place.lower() else clean_place
+            task["action"] = {
+                "type": "maps",
+                "query": query_str
+            }
+        else:
+            if loc_model is not None:
+                try:
+                    loc_pred = loc_model.predict([title])[0]
+                    loc_proba = float(np.max(loc_model.predict_proba([title])[0]))
+                except Exception:
+                    loc_pred = task.get("default_location_hint", "home")
+                    loc_proba = 0.50
+            else:
                 loc_pred = task.get("default_location_hint", "home")
                 loc_proba = 0.50
-
-            # Predict Time
-            try:
-                time_pred = time_model.predict([title])[0]
-                time_proba = float(np.max(time_model.predict_proba([title])[0]))
-            except Exception:
-                time_pred = task.get("default_time_hint", "evening")
-                time_proba = 0.50
 
             task["predicted_location"] = loc_pred
             task["location_confidence"] = round(loc_proba, 2)
             task["display_location"] = format_display_location(loc_pred)
+
+        # 2. Time handling
+        # Rule 2: If a task has a stated_time, use it instead of the ML time prediction.
+        # Show the pill as "You said 7:00 AM" instead of "Best around...".
+        if stated_time:
+            task["display_time_tag"] = f"You said {format_12h_time(stated_time)}"
+            task["time_confidence"] = None
+            try:
+                st_hour = int(stated_time.split(":")[0])
+                task["predicted_time"] = hour_to_bucket(st_hour)
+            except Exception:
+                task["predicted_time"] = "morning"
+            task["fit_score"] = 3.0
+        else:
+            if time_model is not None:
+                try:
+                    time_pred = time_model.predict([title])[0]
+                    time_proba = float(np.max(time_model.predict_proba([title])[0]))
+                except Exception:
+                    time_pred = task.get("default_time_hint", "evening")
+                    time_proba = 0.50
+            else:
+                time_pred = task.get("default_time_hint", "evening")
+                time_proba = 0.50
 
             task["predicted_time"] = time_pred
             task["time_confidence"] = round(time_proba, 2)
@@ -303,38 +360,41 @@ def tag_and_rank_tasks(tasks, local_hour=None):
             else:
                 task["display_time_tag"] = format_display_time_tag(time_pred, current_bucket)
 
-            if any(w in title_lower for w in ["sleep", "wind down", "read before bed", "put phone", "bedtime", "rest", "breathe", "walk", "stretch", "unwind"]):
-                task["action"] = None
-
             task["fit_score"] = round(calculate_time_fit_score(time_pred, current_bucket, time_proba), 3)
 
-        # Sort tasks: highest fit_score first
-        tasks.sort(key=lambda t: t.get("fit_score", 0), reverse=True)
-    else:
-        # Fallback to Gemini order when ML models missing
-        for task in tasks:
-            loc = task.get("default_location_hint", "home")
-            t_bucket = task.get("default_time_hint", "evening")
-            task["predicted_location"] = loc
-            task["location_confidence"] = 0.50
-            task["display_location"] = format_display_location(loc)
-            task["predicted_time"] = t_bucket
-            task["time_confidence"] = 0.50
-            title_lower = task.get("title", "").lower()
-            is_rest = task.get("is_rest_suggestion", False) or (
-                t_bucket == "night" and any(w in title_lower for w in ["sleep", "wind down", "read before bed", "put phone", "bedtime", "rest"])
-            )
-            if is_rest:
-                task["is_rest_suggestion"] = True
-                task["display_time_tag"] = "Rest suggestion"
-                task["action"] = None
-            else:
-                task["display_time_tag"] = format_display_time_tag(t_bucket, current_bucket)
-
-            if any(w in title_lower for w in ["sleep", "wind down", "read before bed", "put phone", "bedtime", "rest", "breathe", "walk", "stretch", "unwind"]):
+        # Action safety: Never add action to rest/screen-away tasks
+        # (Named places like stores, cafes, pharmacies are errands, not rest suggestions)
+        title_lower = title.lower()
+        if not task.get("named_place"):
+            if task.get("is_rest_suggestion") or re.search(r'\b(sleep|wind down|read before bed|put phone|bedtime|rest|breathe|stretch|unwind|nap)\b', title_lower):
                 task["action"] = None
 
-            task["fit_score"] = 1.0
+    # Rule 4 & 5: Stable ranking
+    # Tasks with stated_time come first when their time is closest to the selected hour
+    # (or already passed today but not done). Tasks without stated_time are ranked by ML model.
+    # Scores tie broken by order they appear in the brain dump (_orig_idx).
+    def sort_key(t):
+        orig_idx = t.get("_orig_idx", 0)
+        st = t.get("stated_time")
+        if st:
+            try:
+                parts = st.split(":")
+                t_hour = float(parts[0]) + float(parts[1]) / 60.0
+                if t_hour <= local_hour:
+                    # Already passed today or due right now (earliest in day first)
+                    return (0, t_hour, orig_idx)
+                else:
+                    # Upcoming today (closest to local_hour first)
+                    return (1, t_hour - local_hour, orig_idx)
+            except Exception:
+                pass
+        return (2, -float(t.get("fit_score", 0.0)), orig_idx)
+
+    tasks.sort(key=sort_key)
+
+    # Clean up internal sorting helper key
+    for task in tasks:
+        task.pop("_orig_idx", None)
 
     return tasks, current_bucket, local_hour
 
@@ -431,8 +491,12 @@ def api_breakdown():
             "- Reframe daunting projects into their gentle initial footstep.\n"
             "- Use a warm, calming, non-judgmental tone. Never use alarmist or guilt-inducing words.\n"
             "- Include reassuring microcopy in 'description' explaining why this step is light and doable.\n"
-            "- For each task, estimate 'estimated_minutes' (5-25), 'default_time_hint' ('morning'|'afternoon'|'evening'|'night'), "
-            "  and 'default_location_hint' ('home'|'work'|'public').\n"
+            "- For each task, extract:\n"
+            "  - 'stated_time': the exact time the student wrote, converted to 24-hour format like '07:00', '16:00', or '19:30', or null if no specific time of day was written.\n"
+            "  - 'named_place': specific named place, store, café, or pharmacy if mentioned (like 'Starbucks' or 'UMBC store'), or null.\n"
+            "  - 'estimated_minutes': (5-25)\n"
+            "  - 'default_time_hint': ('morning'|'afternoon'|'evening'|'night')\n"
+            "  - 'default_location_hint': ('home'|'work'|'public')\n"
             "- Optional Action Shortcut: If and only if a task clearly benefits from an immediate digital action shortcut, "
             "  include an 'action' field with one of three types:\n"
             "    1. 'email' -> {\"type\": \"email\", \"subject\": \"polite subject line\", \"body\": \"short, polite draft body\"} "
@@ -446,9 +510,11 @@ def api_breakdown():
             "  {\n"
             "    \"title\": \"concrete initial step using user's exact words\",\n"
             "    \"description\": \"comforting clarification\",\n"
+            "    \"stated_time\": \"07:00\",\n"
+            "    \"named_place\": \"Starbucks\",\n"
             "    \"estimated_minutes\": 10,\n"
             "    \"default_time_hint\": \"morning\",\n"
-            "    \"default_location_hint\": \"home\",\n"
+            "    \"default_location_hint\": \"public\",\n"
             "    \"action\": null\n"
             "  }\n"
             "]"
@@ -457,7 +523,7 @@ def api_breakdown():
         prompt = f"Here is the student's messy brain dump. Please unpack each thought into a concrete micro-task using their exact words:\n\n{brain_dump}"
 
         models_to_try = []
-        for m in [GEMINI_MODEL, "gemini-2.5-flash-lite", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-flash-latest"]:
+        for m in [GEMINI_MODEL, "gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-flash-latest"]:
             if m and m not in models_to_try:
                 models_to_try.append(m)
 
@@ -471,7 +537,7 @@ def api_breakdown():
                     config=types.GenerateContentConfig(
                         system_instruction=system_instruction,
                         response_mime_type="application/json",
-                        temperature=0.2
+                        temperature=0.0
                     )
                 )
                 if response and response.text:
@@ -509,6 +575,42 @@ def api_breakdown():
             except (ValueError, TypeError):
                 mins = 15
 
+            # Stated time parsing & normalization (24h format "HH:MM")
+            raw_stated_time = item.get("stated_time")
+            stated_time = None
+            if raw_stated_time and isinstance(raw_stated_time, str):
+                raw_stated_time = raw_stated_time.strip()
+                if re.match(r"^\d{1,2}:\d{2}$", raw_stated_time):
+                    parts = raw_stated_time.split(":")
+                    stated_time = f"{int(parts[0]):02d}:{int(parts[1]):02d}"
+            # Safety net: check if title or brain dump item mentions explicit time like "7am" or "4pm"
+            if not stated_time:
+                m_time = re.search(r'\b(?:at\s+)?(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b', title, re.IGNORECASE)
+                if m_time:
+                    hh = int(m_time.group(1))
+                    mm = int(m_time.group(2) or 0)
+                    ampm = m_time.group(3).lower()
+                    if ampm == "pm" and hh < 12:
+                        hh += 12
+                    elif ampm == "am" and hh == 12:
+                        hh = 0
+                    stated_time = f"{hh:02d}:{mm:02d}"
+
+            # Named place parsing & normalization
+            raw_named_place = item.get("named_place")
+            named_place = None
+            if raw_named_place and isinstance(raw_named_place, str):
+                raw_named_place = raw_named_place.strip()
+                if raw_named_place.lower() not in ["none", "null", ""]:
+                    named_place = raw_named_place
+            # Safety net: check if title mentions prominent place
+            if not named_place:
+                lower_title = title.lower()
+                for place_candidate in ["starbucks", "umbc store", "campus pharmacy", "dunkin", "target", "cvs", "walgreens"]:
+                    if place_candidate in lower_title:
+                        named_place = "UMBC store" if place_candidate == "umbc store" else place_candidate.title()
+                        break
+
             # Optional Action Shortcut parsing & safety checks
             raw_action = item.get("action")
             action = None
@@ -532,14 +634,19 @@ def api_breakdown():
                     }
 
             # Never add action to rest suggestions or tasks about stepping away from screens
+            # (Named places like stores, cafes, pharmacies are errands, not rest suggestions)
             title_lower = title.lower()
-            if any(w in title_lower for w in ["sleep", "wind down", "read before bed", "put phone", "bedtime", "rest", "breathe", "walk", "stretch", "unwind", "nap"]):
-                action = None
+            if not named_place:
+                if re.search(r'\b(sleep|wind down|read before bed|put phone|bedtime|rest|breathe|stretch|unwind|nap)\b', title_lower):
+                    action = None
 
             formatted_tasks.append({
+                "_orig_idx": i,
                 "id": str(uuid.uuid4())[:8],
                 "title": title,
                 "description": desc,
+                "stated_time": stated_time,
+                "named_place": named_place,
                 "estimated_minutes": mins,
                 "default_time_hint": item.get("default_time_hint", "evening"),
                 "default_location_hint": item.get("default_location_hint", "home"),
