@@ -270,12 +270,7 @@
 
       <!-- Thought Input Area -->
       <div class="relative">
-        <textarea id="dumpTextarea" rows="6" class="w-full bg-transparent resize-none border-0 p-0 text-on-surface font-body-md text-body-md leading-relaxed focus:ring-0 focus:outline-none placeholder:text-outline/60 placeholder:italic" placeholder="What's on your mind? (e.g. biology lab due Friday, email Prof. Davis about extension, laundry pile, buy groceries...)">biology lab report due Friday at 5pm and I haven't even opened the spreadsheet yet
-need to email Prof. Davis to ask if a 24h extension is realistic
-room feels upside down, laundry is overflowing from basket onto the floor
-study for psychology midterm formulas chapter 4
-pick up allergy prescription from campus pharmacy
-forgot to call mom back yesterday</textarea>
+        <textarea id="dumpTextarea" rows="6" class="w-full bg-transparent resize-none border-0 p-0 text-on-surface font-body-md text-body-md leading-relaxed focus:ring-0 focus:outline-none placeholder:text-outline/60 placeholder:italic" placeholder="What's on your mind? (e.g. biology lab due Friday, email Prof. Davis about extension, laundry pile, buy groceries...)"></textarea>
       </div>
 
       <!-- Reassurance Microcopy, Demo Reset, & Counter -->
@@ -292,7 +287,7 @@ forgot to call mom back yesterday</textarea>
         </div>
         <div class="flex items-center gap-1 font-label-sm text-label-sm bg-surface-container-low px-2.5 py-1 rounded-full text-on-surface-variant">
           <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
-          <span id="thoughtCount">6 unburdened thoughts</span>
+          <span id="thoughtCount">0 unburdened thoughts</span>
         </div>
       </div>
     </div>
@@ -332,6 +327,11 @@ forgot to call mom back yesterday</textarea>
   <main id="screen-focus" class="screen-fade hidden relative z-10 flex-1 flex flex-col justify-start items-center px-gutter-mobile md:px-gutter pt-16 md:pt-20 pb-64 md:pb-72 w-full max-w-2xl mx-auto">
     <!-- Gentle Anchor Prompt -->
     <div class="text-center mb-space-md transition-all duration-500">
+      <!-- Fallback Notice Note (Shown ONLY if Gemini request actually fails) -->
+      <div id="fallbackNoticeBanner" class="hidden mb-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-secondary-container/40 border border-secondary-container text-on-secondary-fixed text-label-sm font-label-sm shadow-sm">
+        <span class="material-symbols-outlined text-xs text-secondary">wifi_off</span>
+        <span>Showing sample tasks — connection trouble.</span>
+      </div>
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container/60 mb-2">
         <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
         <span class="text-label-sm font-label-sm text-on-surface-variant tracking-wider uppercase">Single Thread</span>
@@ -431,6 +431,12 @@ forgot to call mom back yesterday</textarea>
         <h2 class="text-headline-sm font-headline-sm text-primary tracking-tight font-bold">Let's make it lighter</h2>
       </div>
       <div class="w-10 h-10"></div>
+    </div>
+
+    <!-- Fallback Notice Note (Shown ONLY if Gemini request actually fails) -->
+    <div id="smallerFallbackBanner" class="hidden mb-1 self-center inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-secondary-container/40 border border-secondary-container text-on-secondary-fixed text-label-sm font-label-sm shadow-sm">
+      <span class="material-symbols-outlined text-xs text-secondary">wifi_off</span>
+      <span>Showing sample tasks — connection trouble.</span>
     </div>
 
     <!-- Context Ribbon: Original Overwhelming Task -->
@@ -686,13 +692,18 @@ forgot to call mom back yesterday</textarea>
       completedTasks: [],
       currentSubsteps: [],
       selectedSubstepIndex: 0,
-      activeScreen: 'dump'
+      activeScreen: 'dump',
+      fallbackNotice: null
     };
 
     // Helper: format hour/time nicely
     function getFriendlyTime(date = new Date()) {
       let hours = date.getHours();
       const minutes = date.getMinutes();
+      const hourSelect = document.getElementById('simulatedHourSelect');
+      if (hourSelect && hourSelect.value !== 'auto') {
+        hours = parseInt(hourSelect.value, 10);
+      }
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12 || 12;
       const minStr = minutes < 10 ? '0' + minutes : minutes;
@@ -705,6 +716,19 @@ forgot to call mom back yesterday</textarea>
         return parseInt(hourSelect.value, 10);
       }
       return new Date().getHours();
+    }
+
+    function getSummaryHeaderLabel() {
+      const hr = getContextHour();
+      if (hr < 12) {
+        return "Morning Reflection";
+      } else if (hr < 17) {
+        return "Afternoon Reflection";
+      } else if (hr < 22) {
+        return "Evening Wind Down";
+      } else {
+        return "Night Wind Down";
+      }
     }
 
     function getTimeGreeting() {
@@ -755,7 +779,7 @@ forgot to call mom back yesterday`;
     function updateTopBadge() {
       const topBadge = document.getElementById('topStatusText');
       if (state.activeScreen === 'summary') {
-        topBadge.textContent = `Evening Wind Down · ${getFriendlyTime()}`;
+        topBadge.textContent = `${getSummaryHeaderLabel()} · ${getFriendlyTime()}`;
       } else {
         topBadge.textContent = "Take a breath · It's okay";
       }
@@ -927,6 +951,7 @@ forgot to call mom back yesterday`;
 
         state.tasks = data.tasks;
         state.currentIndex = 0;
+        state.fallbackNotice = data.fallback_notice || null;
 
         hideProcessing();
         renderFocusTask();
@@ -944,6 +969,18 @@ forgot to call mom back yesterday`;
         // If finished all tasks, head to summary
         navigateTo('summary');
         return;
+      }
+
+      // Fallback Notice Note (only when Gemini connection actually fails)
+      const fallbackNoticeBanner = document.getElementById('fallbackNoticeBanner');
+      if (fallbackNoticeBanner) {
+        if (state.fallbackNotice) {
+          fallbackNoticeBanner.classList.remove('hidden');
+          fallbackNoticeBanner.classList.add('inline-flex');
+        } else {
+          fallbackNoticeBanner.classList.add('hidden');
+          fallbackNoticeBanner.classList.remove('inline-flex');
+        }
       }
 
       const task = state.tasks[state.currentIndex];
@@ -1098,6 +1135,17 @@ forgot to call mom back yesterday`;
     function renderSmallerScreen(data, originalTitle) {
       document.getElementById('smallerOriginalTask').textContent = originalTitle;
       document.getElementById('smallerEncouragement').textContent = data.encouragement || "No problem at all! Let's slice this into even tinier pieces. Which of these feels easiest right now?";
+
+      const smallerFallbackBanner = document.getElementById('smallerFallbackBanner');
+      if (smallerFallbackBanner) {
+        if (data.fallback_notice) {
+          smallerFallbackBanner.classList.remove('hidden');
+          smallerFallbackBanner.classList.add('inline-flex');
+        } else {
+          smallerFallbackBanner.classList.add('hidden');
+          smallerFallbackBanner.classList.remove('inline-flex');
+        }
+      }
 
       state.currentSubsteps = data.steps || [];
       state.selectedSubstepIndex = 0;

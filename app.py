@@ -68,7 +68,7 @@ def rate_limit(requests_per_minute: int = 10):
 
 # Configuration
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
 
 # Load ML Models with graceful fallback
 LOCATION_MODEL_PATH = os.path.join("models", "location_model.joblib")
@@ -96,14 +96,14 @@ TIME_BUCKET_ORDER = ["morning", "afternoon", "evening", "night"]
 DEFAULT_STUDENT_TASKS = [
     {
         "id": "task_psych",
-        "title": "Review chapter 4 definitions for psychology quiz",
+        "title": "Review chapter 4 definitions for psychology midterm",
         "description": "Only look at the first 5 flashcards. Small consistent touches beat frantic cramming.",
         "estimated_minutes": 15,
         "default_time_hint": "morning",
         "default_location_hint": "work",
         "action": {
             "type": "calendar",
-            "title": "Psychology Quiz Review"
+            "title": "Psychology Midterm Review"
         }
     },
     {
@@ -171,15 +171,22 @@ DEFAULT_STUDENT_TASKS = [
 ]
 
 
-def hour_to_bucket(hour: int) -> str:
+def hour_to_bucket(hour: int = None) -> str:
     """
     Converts 24-hour integer (0-23) to time bucket:
     - 5 to 11 -> morning
     - 12 to 16 -> afternoon
     - 17 to 21 -> evening
     - 22 to 23 or 0 to 4 -> night
+    If hour is None, defaults to current local system hour.
     """
-    hour = int(hour) % 24
+    if hour is None:
+        hour = datetime.now().hour
+    try:
+        hour = int(hour) % 24
+    except (ValueError, TypeError):
+        hour = datetime.now().hour
+
     if 5 <= hour <= 11:
         return "morning"
     elif 12 <= hour <= 16:
@@ -390,7 +397,6 @@ def api_breakdown():
     # Extract requested hour (supports local_hour or hour in body or query param)
     data = request.get_json(force=True, silent=True) or {}
     brain_dump = data.get("text", "").strip() or data.get("dump", "").strip()
-    demo_mode = data.get("demo", False)
 
     local_hour = data.get("local_hour")
     if local_hour is None:
@@ -403,24 +409,12 @@ def api_breakdown():
         except (ValueError, TypeError):
             local_hour = None
 
-    if not brain_dump and not demo_mode:
+    if not brain_dump:
         return jsonify({
             "error": "Please provide your thoughts in the 'text' or 'dump' field."
         }), 400
 
-    # Demo mode fallback for rapid offline presentations
-    if demo_mode or GEMINI_API_KEY in ("your_api_key_here", "your_gemini_api_key_here", ""):
-        ranked_tasks, active_bucket, hour_used = tag_and_rank_tasks(DEFAULT_STUDENT_TASKS.copy(), local_hour)
-        return jsonify({
-            "tasks": ranked_tasks,
-            "count": len(ranked_tasks),
-            "current_time_bucket": active_bucket,
-            "local_hour_used": hour_used,
-            "ml_models_applied": bool(loc_model is not None and time_model is not None),
-            "demo_notice": "Showing realistic student demo tasks sorted by ML."
-        })
-
-    # Call Gemini API with offline resilience
+    # Call Gemini API
     try:
         from google.genai import types
         client = get_gemini_client()
@@ -431,9 +425,10 @@ def api_breakdown():
             "Your mission: Transform a messy brain dump of racing thoughts, assignments, and errands into "
             "a calm, structured list of small, concrete, approachable micro-tasks.\n"
             "Guidelines:\n"
+            "- Ground every task strictly in the user's provided brain dump. Use only the specific details, course names, and terms from their text (for example, if the student wrote 'midterm', use 'midterm', do NOT change it to 'quiz'; if they wrote 'biology lab report', refer to 'biology lab'). Never invent assignments, classes, or chores that were not mentioned in the brain dump.\n"
+            "- Convert EACH item from the user's brain dump into a corresponding gentle micro-task so no thought is lost.\n"
             "- Each task should be doable in 5 to 25 minutes.\n"
-            "- Reframe daunting projects into their gentle initial footstep (e.g. instead of 'Study for exam', "
-            "  use 'Review lecture 4 summary slides').\n"
+            "- Reframe daunting projects into their gentle initial footstep.\n"
             "- Use a warm, calming, non-judgmental tone. Never use alarmist or guilt-inducing words.\n"
             "- Include reassuring microcopy in 'description' explaining why this step is light and doable.\n"
             "- For each task, estimate 'estimated_minutes' (5-25), 'default_time_hint' ('morning'|'afternoon'|'evening'|'night'), "
@@ -443,45 +438,50 @@ def api_breakdown():
             "    1. 'email' -> {\"type\": \"email\", \"subject\": \"polite subject line\", \"body\": \"short, polite draft body\"} "
             "       (for emailing professors, advisors, group members, or services)\n"
             "    2. 'maps' -> {\"type\": \"maps\", \"query\": \"physical search destination (e.g. campus pharmacy, library)\"}\n"
-            "    3. 'calendar' -> {\"type\": \"calendar\", \"title\": \"calendar event title (e.g. Psychology Quiz Review)\"}\n"
+            "    3. 'calendar' -> {\"type\": \"calendar\", \"title\": \"calendar event title\"}\n"
             "  * Most tasks should have NO action ('action': null or omitted).\n"
             "  * NEVER add an action to rest suggestions, wind-down tasks, or tasks about stepping away from screens.\n"
             "- Return STRICT JSON matching this format:\n"
             "[\n"
             "  {\n"
-            "    \"title\": \"Draft 2-sentence email to Prof. Davis\",\n"
-            "    \"description\": \"Asking early is responsible and respectful.\",\n"
-            "    \"estimated_minutes\": 5,\n"
-            "    \"default_time_hint\": \"afternoon\",\n"
-            "    \"default_location_hint\": \"work\",\n"
-            "    \"action\": {\n"
-            "      \"type\": \"email\",\n"
-            "      \"subject\": \"Extension Request - Prof. Davis\",\n"
-            "      \"body\": \"Dear Professor Davis,\\n\\nI hope your week is going well...\"\n"
-            "    }\n"
-            "  },\n"
-            "  {\n"
-            "    \"title\": \"Put phone across the room and read 5 pages in bed\",\n"
-            "    \"description\": \"Tomorrow is a brand new clean slate.\",\n"
+            "    \"title\": \"concrete initial step using user's exact words\",\n"
+            "    \"description\": \"comforting clarification\",\n"
             "    \"estimated_minutes\": 10,\n"
-            "    \"default_time_hint\": \"night\",\n"
+            "    \"default_time_hint\": \"morning\",\n"
             "    \"default_location_hint\": \"home\",\n"
             "    \"action\": null\n"
             "  }\n"
             "]"
         )
 
-        prompt = f"Here is the student's messy brain dump. Please unpack it gently into small, concrete tasks:\n\n{brain_dump}"
+        prompt = f"Here is the student's messy brain dump. Please unpack each thought into a concrete micro-task using their exact words:\n\n{brain_dump}"
 
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=system_instruction,
-                response_mime_type="application/json",
-                temperature=0.3
-            )
-        )
+        models_to_try = []
+        for m in [GEMINI_MODEL, "gemini-2.5-flash-lite", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-flash-latest"]:
+            if m and m not in models_to_try:
+                models_to_try.append(m)
+
+        response = None
+        last_error = None
+        for model_name in models_to_try:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        system_instruction=system_instruction,
+                        response_mime_type="application/json",
+                        temperature=0.2
+                    )
+                )
+                if response and response.text:
+                    break
+            except Exception as exc:
+                last_error = exc
+                continue
+
+        if not response or not response.text:
+            raise ValueError(f"No response generated from Gemini API: {last_error}")
 
         parsed_tasks = extract_json_safely(response.text)
 
@@ -577,8 +577,8 @@ def api_breakdown():
         })
 
     except Exception as e:
-        # Fallback to local demo tasks if network or Gemini is slow/down
-        print(f"⚠️ Notice: Gemini API encounter ({e}). Gracefully falling back to pre-parsed student tasks.")
+        # Fallback to sample tasks only if the Gemini request actually fails
+        print(f"⚠️ Notice: Gemini API encounter ({e}). Gracefully falling back to sample tasks.")
         ranked_tasks, active_bucket, hour_used = tag_and_rank_tasks(DEFAULT_STUDENT_TASKS.copy(), local_hour)
         return jsonify({
             "tasks": ranked_tasks,
@@ -586,7 +586,7 @@ def api_breakdown():
             "current_time_bucket": active_bucket,
             "local_hour_used": hour_used,
             "ml_models_applied": bool(loc_model is not None and time_model is not None),
-            "fallback_notice": "Offline companion active: Gemini is resting, so our trained ML models sorted these tasks."
+            "fallback_notice": "Showing sample tasks — connection trouble."
         })
 
 
@@ -600,7 +600,6 @@ def api_smaller():
     """
     data = request.get_json(force=True, silent=True) or {}
     task_title = data.get("task", "").strip() or data.get("title", "").strip()
-    demo_mode = data.get("demo", False)
 
     fallback_steps = [
         {
@@ -623,17 +622,10 @@ def api_smaller():
         }
     ]
 
-    if not task_title and not demo_mode:
+    if not task_title:
         return jsonify({
             "error": "Please provide a task to make smaller in the 'task' or 'title' field."
         }), 400
-
-    if demo_mode or GEMINI_API_KEY in ("your_api_key_here", "your_gemini_api_key_here", ""):
-        return jsonify({
-            "original_task": task_title or "Write opening sentence for Sociology reflection",
-            "encouragement": "No problem at all! Let's slice this into even tinier pieces. Which of these feels easiest right now?",
-            "steps": fallback_steps
-        })
 
     try:
         from google.genai import types
@@ -673,15 +665,32 @@ def api_smaller():
 
         prompt = f"Break this overwhelming task down into 2-3 microscopic steps:\n\n{task_title}"
 
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=system_instruction,
-                response_mime_type="application/json",
-                temperature=0.3
-            )
-        )
+        models_to_try = []
+        for m in [GEMINI_MODEL, "gemini-2.5-flash-lite", "gemini-3-flash-preview", "gemini-3.1-flash-lite", "gemini-flash-latest"]:
+            if m and m not in models_to_try:
+                models_to_try.append(m)
+
+        response = None
+        last_error = None
+        for model_name in models_to_try:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        system_instruction=system_instruction,
+                        response_mime_type="application/json",
+                        temperature=0.2
+                    )
+                )
+                if response and response.text:
+                    break
+            except Exception as exc:
+                last_error = exc
+                continue
+
+        if not response or not response.text:
+            raise ValueError(f"No response generated: {last_error}")
 
         parsed_data = extract_json_safely(response.text)
 
@@ -706,7 +715,8 @@ def api_smaller():
         return jsonify({
             "original_task": task_title or "Write opening sentence for Sociology reflection",
             "encouragement": "No problem at all! Let's slice this into even tinier pieces. Which of these feels easiest right now?",
-            "steps": fallback_steps
+            "steps": fallback_steps,
+            "fallback_notice": "Showing sample tasks — connection trouble."
         })
 
 
