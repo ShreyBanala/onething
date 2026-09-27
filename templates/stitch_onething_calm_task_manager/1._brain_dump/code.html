@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OneThing - Brain Dump</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#e2d7ff",
+            "on-secondary-fixed-variant": "#4a4262",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-container": "#805d3f",
+            "outline-variant": "#c1c8c3",
+            "tertiary": "#66452a",
+            "on-error": "#ffffff",
+            "outline": "#727974",
+            "on-background": "#1b1c1a",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#c6ead8",
+            "on-secondary-fixed": "#1e1734",
+            "on-error-container": "#93000a",
+            "surface-tint": "#446557",
+            "secondary": "#625a7b",
+            "on-tertiary-fixed-variant": "#5f4024",
+            "secondary-fixed-dim": "#ccc1e8",
+            "surface-container": "#efeeeb",
+            "on-primary-fixed": "#002116",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#2d1601",
+            "inverse-on-surface": "#f2f0ed",
+            "primary-fixed-dim": "#abcebe",
+            "surface-container-high": "#eae8e5",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#c6ebd9",
+            "on-tertiary-container": "#ffdbc0",
+            "inverse-primary": "#abcebe",
+            "surface": "#fbf9f6",
+            "on-surface-variant": "#414844",
+            "primary": "#325346",
+            "tertiary-fixed-dim": "#ebbe9a",
+            "secondary-fixed": "#e8ddff",
+            "inverse-surface": "#30312f",
+            "error": "#ba1a1a",
+            "background": "#fbf9f6",
+            "on-secondary-container": "#645c7e",
+            "primary-container": "#4a6b5d",
+            "surface-bright": "#fbf9f6",
+            "tertiary-fixed": "#ffdcc2",
+            "surface-container-highest": "#e4e2df",
+            "on-surface": "#1b1c1a",
+            "surface-variant": "#e4e2df",
+            "on-primary-fixed-variant": "#2d4d40",
+            "surface-dim": "#dbdad7"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1.25rem",
+            "space-sm": "0.75rem",
+            "margin": "3rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem",
+            "space-xl": "3.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "label-md": ["Quicksand"],
+            "display-mobile": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "label-sm": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "headline-sm": ["Quicksand"],
+            "body-lg": ["Nunito Sans"],
+            "headline-lg-mobile": ["Quicksand"],
+            "display": ["Quicksand"],
+            "headline-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "body-md": ["Nunito Sans"]
+          },
+          "fontSize": {
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    @keyframes gentlePulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+    .animate-gentle-pulse {
+      animation: gentlePulse 4.5s ease-in-out infinite;
+    }
+    @keyframes slowBreath {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(74, 107, 93, 0.12);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(123, 114, 149, 0.1);
+      }
+    }
+    .breathe-ring {
+      animation: slowBreath 5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen antialiased flex flex-col selection:bg-secondary-container selection:text-on-secondary-fixed">
+<!-- Top Navigation Shell (Shared Component) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-gutter-mobile md:px-gutter max-w-2xl mx-auto h-16 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-2">
+<img alt="OneThing Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WX9JKR0GbA09dLT-F4DzKucFW1yvv1fOHxGogT_YaEkYcA_4MxR1VMvJV5owbuNKBAm5YkJb1eVIjTvcdNU7mMGuGXJOhSp5T9kUMi4NTGaV1ukA-Fwt1tJl-nF9hD0S41FttcJNE-7Wgvrii3P4Ae9xQ1-TTjJVjvMeJo2r_9QvQASSkDHSLLMBbvWTrXXYV99TLItYmOCtj89ijqNdrakjeNFfphKOzXH4HZXcXINREPhe5YqCmCe88"/>
+</div>
+<!-- Breath Status Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full breathe-ring border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-body-md animate-spin" style="animation-duration: 9s;">air</span>
+<span class="font-label-sm text-label-sm text-primary tracking-wide">Take a breath · It's okay</span>
+</div>
+</header>
+<!-- Main Sanctuary Viewport -->
+<main class="flex-1 w-full max-w-[680px] mx-auto pt-24 pb-32 px-gutter-mobile md:px-gutter flex flex-col justify-start">
+<!-- Welcoming Header Cluster -->
+<section class="mb-space-lg text-left">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 mb-space-sm rounded-full bg-secondary-fixed text-on-secondary-fixed">
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">spa</span>
+<span class="font-label-md text-label-md">Gentle Mind Space</span>
+</div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight mb-2">
+        Hey Maya, feeling a bit swamped?
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl leading-relaxed">
+        You don't have to hold it all in your head. Unload your thoughts below—in any order, as messy as you like. We'll find just one tiny step to start with.
+      </p>
+</section>
+<!-- Brain Dump Canvas Card -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md md:p-space-lg shadow-sm border border-outline-variant/20 transition-all duration-300">
+<!-- Tactile Thought Ribbon Chips -->
+<div class="flex flex-wrap items-center gap-2 mb-space-sm">
+<span class="font-label-sm text-label-sm text-outline px-2 py-0.5">Quick triggers:</span>
+<button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors" onclick="insertTrigger('Bio lab summary')" type="button">
+          + Biology lab
+        </button>
+<button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors" onclick="insertTrigger('Reply to Prof Davis')" type="button">
+          + Email Prof. Davis
+        </button>
+<button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors" onclick="insertTrigger('Do laundry')" type="button">
+          + Laundry pile
+        </button>
+</div>
+<!-- Thought Input Area -->
+<div class="relative">
+<textarea class="w-full bg-transparent resize-none border-0 p-0 text-on-surface font-body-md text-body-md leading-relaxed focus:ring-0 focus:outline-none placeholder:text-outline/60 placeholder:italic" id="dumpTextarea" placeholder="What's on your mind? (e.g. biology lab due Friday, email Prof. Davis about extension, laundry pile, buy groceries...)" rows="7">biology lab report due Friday at 5pm and I haven't opened the spreadsheet yet
+need to email Prof. Davis to ask if a 24h extension is realistic
+room feels upside down, laundry is overflowing from basket
+forgot to call mom back yesterday
+pick up oats and bananas on way back</textarea>
+</div>
+<!-- Reassurance Microcopy & Counter -->
+<div class="mt-4 pt-3 border-t border-surface-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-outline">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-sm" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-body-sm text-body-sm">Only you can see this · No deadlines needed</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm bg-surface-container-low px-2.5 py-1 rounded-full text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>5 unburdened thoughts</span>
+</div>
+</div>
+</div>
+<!-- Gentle Action Bar -->
+<div class="mt-space-md flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-outline-variant">
+<span class="material-symbols-outlined text-primary text-body-lg">potted_plant</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">No streak pressure. Just right now.</span>
+</div>
+<!-- Primary Gentle Warm CTA -->
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg px-7 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 transform active:scale-95 group" id="startProcessingBtn" onclick="triggerProcessing()" type="button">
+<span class="material-symbols-outlined text-body-lg group-hover:rotate-12 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span>Help me start</span>
+</button>
+</div>
+<!-- Soft Anti-Overwhelm Quote Capsule -->
+<div class="mt-space-xl p-space-md rounded-2xl bg-secondary-container/30 border border-secondary-container flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-headline-sm mt-0.5">wb_twilight</span>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-secondary-fixed mb-0.5">Take your time</p>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed-variant leading-relaxed">
+          Executive dysfunction isn't a moral failure. Your brain is simply holding too many open tabs. Let's close all of them except the next tiny step.
+        </p>
+</div>
+</div>
+</main>
+<!-- Processing State Overlay Modal (Restorative Reassurance) -->
+<div class="fixed inset-0 z-50 bg-background/85 backdrop-blur-md hidden flex-col items-center justify-center p-gutter" id="processingOverlay">
+<div class="w-full max-w-md bg-surface-container-lowest rounded-xl p-space-lg shadow-xl border border-outline-variant/30 text-center flex flex-col items-center relative overflow-hidden">
+<!-- Subtle Decorative Aura -->
+<div class="absolute -top-16 -right-16 w-36 h-36 rounded-full bg-secondary-fixed/40 blur-2xl pointer-events-none"></div>
+<div class="absolute -bottom-16 -left-16 w-36 h-36 rounded-full bg-primary-fixed/40 blur-2xl pointer-events-none"></div>
+<!-- Pulsing Lavender/Sage Rings -->
+<div class="relative w-24 h-24 mb-6 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full bg-secondary-container/50 animate-ping opacity-40"></div>
+<div class="absolute inset-2 rounded-full bg-primary-fixed/60 animate-gentle-pulse"></div>
+<div class="relative w-14 h-14 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-display-mobile" style="font-variation-settings: 'FILL' 1;">nest_eco_leaf</span>
+</div>
+</div>
+<!-- Processing Messaging -->
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Sorting your thoughts...</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xs leading-relaxed">
+        Finding the easiest, gentlest first step for you. No pressure to finish everything today.
+      </p>
+<!-- Soft Progress Skeleton Pill -->
+<div class="w-full bg-surface-container-low rounded-full h-2 mb-6 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-700 ease-out" id="progressBar" style="width: 25%;"></div>
+</div>
+<div class="flex items-center gap-2 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-body-sm animate-spin">sync</span>
+<span id="reassuranceStep">Filtering high-stress noise...</span>
+</div>
+<!-- Dismiss / Pause Button if overwhelmed -->
+<button class="mt-6 text-on-surface-variant hover:text-primary font-label-md text-label-md underline underline-offset-4 decoration-outline-variant transition-colors" onclick="hideProcessing()" type="button">
+        Keep typing for a moment
+      </button>
+</div>
+</div>
+<!-- Bottom Navigation Shell (Shared Component: BottomNavBar) -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-gutter-mobile py-space-xs max-w-md mx-auto bg-surface-container-lowest/90 dark:bg-inverse-surface/90 backdrop-blur-lg rounded-t-lg shadow-sm">
+<!-- Tab 1: Dump (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container/20 dark:bg-primary-container text-primary dark:text-on-primary-container rounded-full px-5 py-1.5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span class="font-label-sm text-label-sm">Dump</span>
+</a>
+<!-- Tab 2: Focus (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-headline-sm">radio_button_checked</span>
+<span class="font-label-sm text-label-sm">Focus</span>
+</a>
+<!-- Tab 3: Reflect (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-headline-sm">nightlight</span>
+<span class="font-label-sm text-label-sm">Reflect</span>
+</a>
+</nav>
+<script>
+    function insertTrigger(text) {
+      const textarea = document.getElementById('dumpTextarea');
+      if (textarea.value.trim().length > 0) {
+        textarea.value += '\n' + text;
+      } else {
+        textarea.value = text;
+      }
+      textarea.focus();
+    }
+
+    let progressTimer;
+
+    function triggerProcessing() {
+      const overlay = document.getElementById('processingOverlay');
+      const bar = document.getElementById('progressBar');
+      const stepText = document.getElementById('reassuranceStep');
+      
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      
+      let step = 1;
+      bar.style.width = '25%';
+      stepText.innerText = 'Filtering high-stress noise...';
+
+      progressTimer = setInterval(() => {
+        step++;
+        if (step === 2) {
+          bar.style.width = '65%';
+          stepText.innerText = 'Dissolving big projects into friendly bits...';
+        } else if (step === 3) {
+          bar.style.width = '95%';
+          stepText.innerText = 'Ready! Found one gentle 5-minute win.';
+        } else if (step > 4) {
+          clearInterval(progressTimer);
+        }
+      }, 1400);
+    }
+
+    function hideProcessing() {
+      if (progressTimer) clearInterval(progressTimer);
+      const overlay = document.getElementById('processingOverlay');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+    }
+  </script>
+</body></html>

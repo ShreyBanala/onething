@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OneThing - Right now, just this</title>
+<!-- Google Fonts: Quicksand (Display/Headlines/Labels) & Nunito Sans (Body) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..700;1,6..12,300..700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#e2d7ff",
+            "on-secondary-fixed-variant": "#4a4262",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-container": "#805d3f",
+            "outline-variant": "#c1c8c3",
+            "tertiary": "#66452a",
+            "on-error": "#ffffff",
+            "outline": "#727974",
+            "on-background": "#1b1c1a",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#c6ead8",
+            "on-secondary-fixed": "#1e1734",
+            "on-error-container": "#93000a",
+            "surface-tint": "#446557",
+            "secondary": "#625a7b",
+            "on-tertiary-fixed-variant": "#5f4024",
+            "secondary-fixed-dim": "#ccc1e8",
+            "surface-container": "#efeeeb",
+            "on-primary-fixed": "#002116",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#2d1601",
+            "inverse-on-surface": "#f2f0ed",
+            "primary-fixed-dim": "#abcebe",
+            "surface-container-high": "#eae8e5",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#c6ebd9",
+            "on-tertiary-container": "#ffdbc0",
+            "inverse-primary": "#abcebe",
+            "surface": "#fbf9f6",
+            "on-surface-variant": "#414844",
+            "primary": "#325346",
+            "tertiary-fixed-dim": "#ebbe9a",
+            "secondary-fixed": "#e8ddff",
+            "inverse-surface": "#30312f",
+            "error": "#ba1a1a",
+            "background": "#fbf9f6",
+            "on-secondary-container": "#645c7e",
+            "primary-container": "#4a6b5d",
+            "surface-bright": "#fbf9f6",
+            "tertiary-fixed": "#ffdcc2",
+            "surface-container-highest": "#e4e2df",
+            "on-surface": "#1b1c1a",
+            "surface-variant": "#e4e2df",
+            "on-primary-fixed-variant": "#2d4d40",
+            "surface-dim": "#dbdad7"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1.25rem",
+            "space-sm": "0.75rem",
+            "margin": "3rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem",
+            "space-xl": "3.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "label-md": ["Quicksand"],
+            "display-mobile": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "label-sm": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "headline-sm": ["Quicksand"],
+            "body-lg": ["Nunito Sans"],
+            "headline-lg-mobile": ["Quicksand"],
+            "display": ["Quicksand"],
+            "headline-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "body-md": ["Nunito Sans"]
+          },
+          "fontSize": {
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #FAF8F5;
+      color: #1b1c1a;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .pillow-card {
+      background: #FFFDFB;
+      box-shadow: 0 16px 40px -8px rgba(74, 107, 93, 0.06), 0 4px 16px -2px rgba(98, 90, 123, 0.04);
+      border: 1px solid rgba(74, 107, 93, 0.08);
+    }
+
+    .pulse-halo {
+      animation: warmBreathe 7s ease-in-out infinite;
+    }
+
+    @keyframes warmBreathe {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.35;
+      }
+      50% {
+        transform: scale(1.04);
+        opacity: 0.65;
+      }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md relative selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
+<!-- Ambient Organic Aura in Background -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="pulse-halo absolute -top-32 left-1/2 -translate-x-1/2 w-[540px] h-[540px] rounded-full bg-gradient-to-br from-primary-fixed/30 via-secondary-container/25 to-transparent blur-3xl"></div>
+<div class="pulse-halo absolute bottom-10 left-1/3 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-secondary-fixed/20 via-surface-container-low to-transparent blur-2xl"></div>
+</div>
+<!-- Shared Component: TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-gutter-mobile md:px-gutter max-w-2xl mx-auto h-16 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-2">
+<button aria-label="Mindful pause" class="w-10 h-10 rounded-full flex items-center justify-center text-primary dark:text-primary-fixed hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-300 transition-transform duration-200 ease-out active:scale-95">
+<span class="material-symbols-outlined" data-icon="spa">spa</span>
+</button>
+<span class="text-label-md font-label-md text-on-surface-variant hidden sm:inline-block">Dorm Desk Mode</span>
+</div>
+<!-- Center Brand Anchor / Logo -->
+<div class="flex items-center justify-center">
+<img alt="OneThing Logo" class="h-8 md:h-9 object-contain select-none" src="https://lh3.googleusercontent.com/aida/AEtjO1WX9JKR0GbA09dLT-F4DzKucFW1yvv1fOHxGogT_YaEkYcA_4MxR1VMvJV5owbuNKBAm5YkJb1eVIjTvcdNU7mMGuGXJOhSp5T9kUMi4NTGaV1ukA-Fwt1tJl-nF9hD0S41FttcJNE-7Wgvrii3P4Ae9xQ1-TTjJVjvMeJo2r_9QvQASSkDHSLLMBbvWTrXXYV99TLItYmOCtj89ijqNdrakjeNFfphKOzXH4HZXcXINREPhe5YqCmCe88"/>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-1">
+<button aria-label="Breathe deep" class="w-10 h-10 rounded-full flex items-center justify-center text-primary dark:text-primary-fixed hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-300 transition-transform duration-200 ease-out active:scale-95">
+<span class="material-symbols-outlined" data-icon="air">air</span>
+</button>
+</div>
+</header>
+<!-- Main Focus Stage Canvas -->
+<main class="relative z-10 flex-1 flex flex-col justify-center items-center px-gutter-mobile md:px-gutter pt-20 pb-28 w-full max-w-2xl mx-auto">
+<!-- Gentle Anchor Prompt -->
+<div class="text-center mb-space-md transition-all duration-500">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container/60 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant tracking-wider uppercase">Single Thread</span>
+</div>
+<h1 class="text-headline-sm md:text-headline-md font-headline-sm md:font-headline-md text-primary tracking-tight">
+        Right now, just this.
+      </h1>
+</div>
+<!-- The "One Thing" Horizon Focus Card -->
+<div class="w-full pillow-card rounded-3xl p-space-md sm:p-space-lg md:p-space-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden">
+<!-- Calming Watermark Accent -->
+<div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-primary-fixed/20 pointer-events-none blur-xl"></div>
+<!-- Contextual Tag Badge -->
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-low text-primary border border-outline-variant/30 mb-space-lg shadow-sm">
+<span class="text-label-md font-label-md flex items-center gap-1.5">
+<span>🌿 Good for tonight</span>
+<span class="text-outline-variant">·</span>
+<span class="text-on-surface-variant font-medium">Dorm Desk</span>
+<span class="text-xs opacity-70 ml-1">9:30 PM</span>
+</span>
+</div>
+<!-- Single Primary Focus Task -->
+<div class="my-space-md md:my-space-lg max-w-lg">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface leading-snug md:leading-relaxed">
+          Write just the opening sentence for your Sociology reflection paper
+        </h2>
+<!-- Compassionate Clarification -->
+<p class="mt-space-md text-body-md font-body-md text-on-surface-variant leading-relaxed max-w-md mx-auto">
+          The full paper isn't due tonight. Just typing one sentence breaks the freeze.
+        </p>
+</div>
+<!-- Action Cluster -->
+<div class="w-full max-w-sm mt-space-md flex flex-col gap-3.5 items-center">
+<!-- Primary Done Button -->
+<button class="w-full py-3.5 px-7 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 group" id="doneBtn">
+<span>Done</span>
+<span class="text-on-primary-container group-hover:translate-x-0.5 transition-transform duration-200">✓</span>
+</button>
+<!-- Secondary Compassionate Micro-Step -->
+<button class="w-full py-2.5 px-5 rounded-full bg-surface-container-low/80 hover:bg-secondary-container/40 text-secondary border border-outline-variant/40 font-label-lg text-label-lg transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2" id="shrinkBtn">
+<span>Too much? Make it smaller</span>
+<span class="text-base select-none">🪄</span>
+</button>
+</div>
+<!-- Lower Comfort Micro-Copy -->
+<div class="mt-space-lg pt-space-sm border-t border-outline-variant/20 w-full flex items-center justify-center gap-2 text-on-surface-variant/80">
+<span class="material-symbols-outlined text-sm" data-icon="cloud">cloud</span>
+<p class="text-body-sm font-body-sm italic">
+          Feeling stuck is normal. You can pause anytime.
+        </p>
+</div>
+</div>
+<!-- Mindful Pause Bar / Ambient Grounding Tile -->
+<div class="mt-space-md w-full max-w-md bg-surface-container-lowest/60 rounded-2xl p-space-sm border border-outline-variant/30 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-container/50 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-base" data-icon="self_improvement">self_improvement</span>
+</div>
+<div class="text-left">
+<p class="text-label-md font-label-md text-on-surface">Unclench your jaw</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Drop your shoulders away from your ears</p>
+</div>
+</div>
+<button class="px-3 py-1 rounded-full text-label-sm font-label-sm bg-surface-container hover:bg-surface-container-high transition-colors">
+        Exhale
+      </button>
+</div>
+</main>
+<!-- Shared Component: BottomNavBar (Active: Focus) -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-gutter-mobile py-space-xs max-w-md mx-auto bg-surface-container-lowest/90 dark:bg-inverse-surface/90 backdrop-blur-lg docked full-width bottom-0 rounded-t-lg shadow-sm dark:shadow-none">
+<!-- Tab 1: Dump (Inactive) -->
+<button aria-label="Dump" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low dark:hover:bg-surface-container-high active:scale-95">
+<span class="material-symbols-outlined text-2xl" data-icon="edit_note">edit_note</span>
+<span class="text-label-sm font-label-sm mt-0.5">Dump</span>
+</button>
+<!-- Tab 2: Focus (ACTIVE) -->
+<button aria-current="page" aria-label="Focus" class="flex flex-col items-center justify-center bg-primary-container/20 dark:bg-primary-container text-primary dark:text-on-primary-container rounded-full px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low dark:hover:bg-surface-container-high active:scale-95">
+<span class="material-symbols-outlined text-2xl" data-icon="radio_button_checked" data-weight="fill" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+<span class="text-label-sm font-label-sm mt-0.5 font-bold">Focus</span>
+</button>
+<!-- Tab 3: Reflect (Inactive) -->
+<button aria-label="Reflect" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low dark:hover:bg-surface-container-high active:scale-95">
+<span class="material-symbols-outlined text-2xl" data-icon="nightlight">nightlight</span>
+<span class="text-label-sm font-label-sm mt-0.5">Reflect</span>
+</button>
+</nav>
+<!-- Interactive Reassurance Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const doneBtn = document.getElementById('doneBtn');
+      const shrinkBtn = document.getElementById('shrinkBtn');
+      const taskHeading = document.querySelector('h2');
+      const taskSubtext = document.querySelector('h2 + p');
+
+      if (doneBtn) {
+        doneBtn.addEventListener('click', () => {
+          doneBtn.innerHTML = `<span>Celebrated ✨</span>`;
+          doneBtn.classList.add('bg-primary', 'scale-95');
+          setTimeout(() => {
+            doneBtn.innerHTML = `<span>Take a gentle breath</span> <span class="text-on-primary-container">🌿</span>`;
+            taskHeading.textContent = "You did the hardest part: starting.";
+            taskHeading.classList.add('text-primary');
+            taskSubtext.textContent = "Rest for two minutes or let this momentum carry you forward.";
+          }, 800);
+        });
+      }
+
+      if (shrinkBtn) {
+        shrinkBtn.addEventListener('click', () => {
+          shrinkBtn.classList.add('scale-95');
+          setTimeout(() => {
+            shrinkBtn.classList.remove('scale-95');
+            taskHeading.textContent = "Open your laptop document and write the paper title.";
+            taskSubtext.textContent = "Just the title. Not even a sentence yet. That's a huge win.";
+            shrinkBtn.textContent = "Even smaller? Just open the doc 🌿";
+          }, 250);
+        });
+      }
+    });
+  </script>
+</body></html>

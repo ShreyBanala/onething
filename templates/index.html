@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>OneThing · Calm, Single-Task Focus for Overwhelmed Minds</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS & Plugins via CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- canvas-confetti for celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Tailwind Design Tokens from Restorative Companion DESIGN.md -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#e2d7ff",
+            "on-secondary-fixed-variant": "#4a4262",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-container": "#805d3f",
+            "outline-variant": "#c1c8c3",
+            "tertiary": "#66452a",
+            "on-error": "#ffffff",
+            "outline": "#727974",
+            "on-background": "#1b1c1a",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#c6ead8",
+            "on-secondary-fixed": "#1e1734",
+            "on-error-container": "#93000a",
+            "surface-tint": "#446557",
+            "secondary": "#625a7b",
+            "on-tertiary-fixed-variant": "#5f4024",
+            "secondary-fixed-dim": "#ccc1e8",
+            "surface-container": "#efeeeb",
+            "on-primary-fixed": "#002116",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#2d1601",
+            "inverse-on-surface": "#f2f0ed",
+            "primary-fixed-dim": "#abcebe",
+            "surface-container-high": "#eae8e5",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#c6ebd9",
+            "on-tertiary-container": "#ffdbc0",
+            "inverse-primary": "#abcebe",
+            "surface": "#fbf9f6",
+            "on-surface-variant": "#414844",
+            "primary": "#325346",
+            "tertiary-fixed-dim": "#ebbe9a",
+            "secondary-fixed": "#e8ddff",
+            "inverse-surface": "#30312f",
+            "error": "#ba1a1a",
+            "background": "#fbf9f6",
+            "on-secondary-container": "#645c7e",
+            "primary-container": "#4a6b5d",
+            "surface-bright": "#fbf9f6",
+            "tertiary-fixed": "#ffdcc2",
+            "surface-container-highest": "#e4e2df",
+            "on-surface": "#1b1c1a",
+            "surface-variant": "#e4e2df",
+            "on-primary-fixed-variant": "#2d4d40",
+            "surface-dim": "#dbdad7"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-md": "1.25rem",
+            "space-sm": "0.75rem",
+            "margin": "3rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem",
+            "space-xl": "3.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter-mobile": "1rem"
+          },
+          fontFamily: {
+            "label-md": ["Quicksand", "sans-serif"],
+            "display-mobile": ["Quicksand", "sans-serif"],
+            "body-sm": ["Nunito Sans", "sans-serif"],
+            "label-sm": ["Quicksand", "sans-serif"],
+            "label-lg": ["Quicksand", "sans-serif"],
+            "headline-sm": ["Quicksand", "sans-serif"],
+            "body-lg": ["Nunito Sans", "sans-serif"],
+            "headline-lg-mobile": ["Quicksand", "sans-serif"],
+            "display": ["Quicksand", "sans-serif"],
+            "headline-md": ["Quicksand", "sans-serif"],
+            "headline-lg": ["Quicksand", "sans-serif"],
+            "body-md": ["Nunito Sans", "sans-serif"]
+          },
+          fontSize: {
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1b1c1a;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .pillow-card {
+      background: #FFFDFB;
+      box-shadow: 0 16px 40px -8px rgba(74, 107, 93, 0.06), 0 4px 16px -2px rgba(98, 90, 123, 0.04);
+      border: 1px solid rgba(74, 107, 93, 0.08);
+    }
+    .soft-pillow-shadow {
+      box-shadow: 0 8px 32px -4px rgba(74, 107, 93, 0.05), 0 2px 8px -2px rgba(45, 52, 54, 0.03);
+    }
+    .custom-warm-shadow {
+      box-shadow: 0 16px 40px -8px rgba(123, 114, 149, 0.08), 0 4px 12px -2px rgba(45, 52, 54, 0.02);
+    }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+    .animate-gentle-pulse {
+      animation: gentlePulse 4.5s ease-in-out infinite;
+    }
+    @keyframes slowBreath {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(74, 107, 93, 0.12); }
+      50% { box-shadow: 0 0 0 10px rgba(123, 114, 149, 0.1); }
+    }
+    .breathe-ring {
+      animation: slowBreath 5s ease-in-out infinite;
+    }
+    @keyframes warmBreathe {
+      0%, 100% { transform: scale(1); opacity: 0.35; }
+      50% { transform: scale(1.04); opacity: 0.65; }
+    }
+    .pulse-halo {
+      animation: warmBreathe 7s ease-in-out infinite;
+    }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-6px) scale(1.01); }
+    }
+    .float-sprout {
+      animation: gentleFloat 4.5s ease-in-out infinite;
+    }
+    .screen-fade {
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    .screen-fade.hidden {
+      display: none !important;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen antialiased flex flex-col selection:bg-secondary-container selection:text-on-secondary-fixed relative overflow-x-hidden">
+
+  <!-- Ambient Organic Aura in Background -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="pulse-halo absolute -top-32 left-1/2 -translate-x-1/2 w-[540px] h-[540px] rounded-full bg-gradient-to-br from-primary-fixed/30 via-secondary-container/25 to-transparent blur-3xl"></div>
+    <div class="pulse-halo absolute bottom-10 left-1/3 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-secondary-fixed/20 via-surface-container-low to-transparent blur-2xl"></div>
+  </div>
+
+  <!-- Shared Top App Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-gutter-mobile md:px-gutter max-w-2xl mx-auto h-16 bg-surface/85 backdrop-blur-md border-b border-outline-variant/10">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('dump')">
+      <img src="/static/logo.svg" alt="OneThing Logo" class="h-8 md:h-9 object-contain select-none"/>
+    </div>
+    
+    <!-- Top Right Status Badge / Calming Affirmation -->
+    <div id="topStatusBadge" class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full breathe-ring border border-outline-variant/30">
+      <span class="material-symbols-outlined text-primary text-body-md animate-spin" style="animation-duration: 9s;">air</span>
+      <span id="topStatusText" class="font-label-sm text-label-sm text-primary tracking-wide">Take a breath · It's okay</span>
+    </div>
+  </header>
+
+  <!-- Friendly Toast Notification for Calm Alerts & Errors -->
+  <div id="toastMessage" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden max-w-md w-[90%] p-4 rounded-2xl bg-secondary-container text-on-secondary-fixed shadow-lg border border-secondary/20 transition-all duration-300">
+    <div class="flex items-start gap-3">
+      <span class="material-symbols-outlined text-secondary text-xl mt-0.5" id="toastIcon">info</span>
+      <div class="flex-1">
+        <p class="font-headline-sm text-headline-sm text-on-secondary-fixed" id="toastTitle">Take a gentle pause</p>
+        <p class="font-body-sm text-body-sm text-on-secondary-fixed-variant mt-0.5 leading-relaxed" id="toastBody">Something took a bit longer than expected. You can try again anytime.</p>
+      </div>
+      <button class="text-on-secondary-fixed-variant hover:text-on-secondary-fixed text-lg" onclick="hideToast()">×</button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SCREEN 1: BRAIN DUMP                      -->
+  <!-- ========================================== -->
+  <main id="screen-dump" class="screen-fade relative z-10 flex-1 w-full max-w-[680px] mx-auto pt-20 md:pt-24 pb-64 md:pb-72 px-gutter-mobile md:px-gutter flex flex-col justify-start">
+    <section class="mb-space-lg text-left">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 mb-space-sm rounded-full bg-secondary-fixed text-on-secondary-fixed">
+        <span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">spa</span>
+        <span class="font-label-md text-label-md">Gentle Mind Space</span>
+      </div>
+      <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight mb-2" id="userGreeting">
+        Hey there, feeling a bit swamped?
+      </h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-xl leading-relaxed">
+        You don't have to hold it all in your head. Unload your thoughts below—in any order, as messy as you like. We'll find just one tiny step to start with.
+      </p>
+    </section>
+
+    <!-- Brain Dump Canvas Card -->
+    <div class="relative bg-surface-container-lowest rounded-3xl p-space-md md:p-space-lg shadow-sm border border-outline-variant/20 transition-all duration-300">
+      <!-- Tactile Thought Ribbon Chips & Context Time Simulator -->
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-space-sm pt-1">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-label-sm text-label-sm text-outline px-2 py-0.5">Quick triggers:</span>
+          <button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors active:scale-95" onclick="insertTrigger('Biology lab report due Friday')" type="button">
+            + Biology lab
+          </button>
+          <button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors active:scale-95" onclick="insertTrigger('Email Prof. Davis to ask for extension')" type="button">
+            + Email Prof. Davis
+          </button>
+          <button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors active:scale-95" onclick="insertTrigger('Laundry pile overflowing from hamper')" type="button">
+            + Laundry pile
+          </button>
+          <button class="font-label-sm text-label-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant px-3 py-1 rounded-full transition-colors active:scale-95" onclick="insertTrigger('Call mom back')" type="button">
+            + Call family
+          </button>
+        </div>
+
+        <!-- Simulated Context Hour Selector (For judging and testing) -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-outline shadow-sm">
+          <span class="material-symbols-outlined text-xs text-primary">schedule</span>
+          <span class="text-label-sm font-label-sm text-on-surface-variant">Time:</span>
+          <select id="simulatedHourSelect" onchange="updateGreetingAndTopBadge()" class="bg-transparent border-0 p-0 text-label-sm font-label-sm text-primary font-semibold focus:ring-0 cursor-pointer">
+            <option value="auto">Live Hour (Now)</option>
+            <option value="9">Morning (9 AM)</option>
+            <option value="14">Afternoon (2 PM)</option>
+            <option value="19">Evening (7 PM)</option>
+            <option value="23">Night (11 PM)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Thought Input Area -->
+      <div class="relative">
+        <textarea id="dumpTextarea" rows="6" class="w-full bg-transparent resize-none border-0 p-0 text-on-surface font-body-md text-body-md leading-relaxed focus:ring-0 focus:outline-none placeholder:text-outline/60 placeholder:italic" placeholder="What's on your mind? (e.g. biology lab due Friday, email Prof. Davis about extension, laundry pile, buy groceries...)">biology lab report due Friday at 5pm and I haven't even opened the spreadsheet yet
+need to email Prof. Davis to ask if a 24h extension is realistic
+room feels upside down, laundry is overflowing from basket onto the floor
+study for psychology midterm formulas chapter 4
+pick up allergy prescription from campus pharmacy
+forgot to call mom back yesterday</textarea>
+      </div>
+
+      <!-- Reassurance Microcopy, Demo Reset, & Counter -->
+      <div class="mt-4 pt-3 border-t border-surface-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-outline">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-body-sm" style="font-variation-settings: 'FILL' 1;">lock</span>
+            <span class="font-body-sm text-body-sm">Only you can see this · No deadlines needed</span>
+          </div>
+          <button type="button" onclick="prefillDemoDump()" class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1 transition-opacity opacity-80 hover:opacity-100">
+            <span class="material-symbols-outlined text-xs">restart_alt</span>
+            <span>Pre-fill demo</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-1 font-label-sm text-label-sm bg-surface-container-low px-2.5 py-1 rounded-full text-on-surface-variant">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          <span id="thoughtCount">6 unburdened thoughts</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Gentle Action Bar -->
+    <div class="mt-space-md flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-outline-variant">
+        <span class="material-symbols-outlined text-primary text-body-lg">potted_plant</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">No streak pressure. Just right now.</span>
+      </div>
+      <!-- Primary Gentle Warm CTA -->
+      <button id="startProcessingBtn" onclick="submitBrainDump()" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg px-7 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 transform active:scale-95 group">
+        <span class="material-symbols-outlined text-body-lg group-hover:rotate-12 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">eco</span>
+        <span>Help me start</span>
+      </button>
+    </div>
+
+    <!-- Soft Anti-Overwhelm Quote Capsule -->
+    <div class="mt-space-xl p-space-md rounded-2xl bg-secondary-container/30 border border-secondary-container flex items-start gap-3">
+      <span class="material-symbols-outlined text-secondary text-headline-sm mt-0.5">wb_twilight</span>
+      <div>
+        <p class="font-headline-sm text-headline-sm text-on-secondary-fixed mb-0.5">Take your time</p>
+        <p class="font-body-sm text-body-sm text-on-secondary-fixed-variant leading-relaxed">
+          Executive dysfunction isn't a moral failure. Your brain is simply holding too many open tabs. Let's close all of them except the next tiny step.
+        </p>
+      </div>
+    </div>
+    <!-- Dedicated spacer to ensure bottom nav bar never overlaps content -->
+    <div class="h-24 md:h-28 w-full shrink-0" aria-hidden="true"></div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- SCREEN 2: ONE TASK FOCUS                  -->
+  <!-- ========================================== -->
+  <main id="screen-focus" class="screen-fade hidden relative z-10 flex-1 flex flex-col justify-start items-center px-gutter-mobile md:px-gutter pt-16 md:pt-20 pb-64 md:pb-72 w-full max-w-2xl mx-auto">
+    <!-- Gentle Anchor Prompt -->
+    <div class="text-center mb-space-md transition-all duration-500">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container/60 mb-2">
+        <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+        <span class="text-label-sm font-label-sm text-on-surface-variant tracking-wider uppercase">Single Thread</span>
+      </div>
+      <h1 class="text-headline-sm md:text-headline-md font-headline-sm md:font-headline-md text-primary tracking-tight">
+        Right now, just this.
+      </h1>
+    </div>
+
+    <!-- The "One Thing" Horizon Focus Card -->
+    <div class="w-full pillow-card rounded-3xl p-space-md sm:p-space-lg md:p-space-xl flex flex-col items-center text-center transition-all duration-300 relative overflow-hidden">
+      <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-primary-fixed/20 pointer-events-none blur-xl"></div>
+      
+      <!-- Contextual Tag Badge (Time & Location pill) -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-low text-primary border border-outline-variant/30 mb-space-lg shadow-sm">
+        <span class="text-label-md font-label-md flex items-center gap-1.5" id="focusTaskPill">
+          <span>🌿 Good for right now</span>
+          <span class="text-outline-variant">·</span>
+          <span class="text-on-surface-variant font-medium">Home</span>
+          <span class="text-xs opacity-70 ml-1" id="focusTimeDisplay">Now</span>
+        </span>
+      </div>
+
+      <!-- Single Primary Focus Task -->
+      <div class="my-space-md md:my-space-lg max-w-lg">
+        <h2 id="focusTaskTitle" class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface leading-snug md:leading-relaxed">
+          Write just the opening sentence for your Sociology reflection paper
+        </h2>
+        <!-- Compassionate Clarification -->
+        <p id="focusTaskDescription" class="mt-space-md text-body-md font-body-md text-on-surface-variant leading-relaxed max-w-md mx-auto">
+          The full paper isn't due tonight. Just typing one sentence breaks the freeze.
+        </p>
+
+        <!-- Optional Action Shortcut (Below task text, subtle and soft) -->
+        <div id="focusTaskActionContainer" class="mt-4 flex items-center justify-center hidden">
+          <a id="focusTaskActionBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-primary border border-outline-variant/30 text-label-md font-label-md transition-all duration-200 hover:-translate-y-0.5 active:scale-95 shadow-sm">
+            <span id="focusTaskActionLabel">✉️ Open draft</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Cluster -->
+      <div class="w-full max-w-sm mt-space-md flex flex-col gap-3.5 items-center">
+        <!-- Primary Done Button -->
+        <button id="doneBtn" onclick="markCurrentTaskDone()" class="w-full py-3.5 px-7 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 group">
+          <span>Done</span>
+          <span class="text-on-primary-container group-hover:translate-x-0.5 transition-transform duration-200">✓</span>
+        </button>
+
+        <!-- Secondary Compassionate Micro-Step -->
+        <button id="shrinkBtn" onclick="makeTaskSmaller()" class="w-full py-2.5 px-5 rounded-full bg-surface-container-low/80 hover:bg-secondary-container/40 text-secondary border border-outline-variant/40 font-label-lg text-label-lg transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
+          <span>Too much? Make it smaller</span>
+          <span class="text-base select-none">🪄</span>
+        </button>
+      </div>
+
+      <!-- Lower Comfort Micro-Copy -->
+      <div class="mt-space-lg pt-space-sm border-t border-outline-variant/20 w-full flex items-center justify-center gap-2 text-on-surface-variant/80">
+        <span class="material-symbols-outlined text-sm">cloud</span>
+        <p class="text-body-sm font-body-sm italic">
+          Feeling stuck is normal. You can pause anytime.
+        </p>
+      </div>
+    </div>
+
+    <!-- Mindful Pause Bar / Ambient Grounding Tile -->
+    <div class="mt-space-md w-full max-w-md bg-surface-container-lowest/60 rounded-2xl p-space-sm border border-outline-variant/30 flex items-center justify-between text-on-surface-variant">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full bg-secondary-container/50 text-secondary flex items-center justify-center">
+          <span class="material-symbols-outlined text-base">self_improvement</span>
+        </div>
+        <div class="text-left">
+          <p class="text-label-md font-label-md text-on-surface">Unclench your jaw</p>
+          <p class="text-body-sm font-body-sm text-on-surface-variant">Drop your shoulders away from your ears</p>
+        </div>
+      </div>
+      <button onclick="triggerBreathingCue()" class="px-3 py-1 rounded-full text-label-sm font-label-sm bg-surface-container hover:bg-surface-container-high transition-colors active:scale-95">
+        Exhale
+      </button>
+    </div>
+    <!-- Dedicated spacer to ensure bottom nav bar never overlaps the task card -->
+    <div class="h-24 md:h-28 w-full shrink-0" aria-hidden="true"></div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- SCREEN 3: BREAK IT DOWN                   -->
+  <!-- ========================================== -->
+  <main id="screen-smaller" class="screen-fade hidden flex-1 w-full max-w-[680px] mx-auto pt-16 md:pt-20 pb-64 md:pb-72 px-gutter-mobile md:px-gutter flex flex-col gap-space-md">
+    <!-- Sub-header bar with back button -->
+    <div class="flex items-center justify-between mb-2">
+      <button onclick="navigateTo('focus')" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container transition-colors duration-300 active:scale-95" type="button">
+        <span class="material-symbols-outlined text-primary text-xl">arrow_back</span>
+      </button>
+      <div class="flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-primary text-base">spa</span>
+        <h2 class="text-headline-sm font-headline-sm text-primary tracking-tight font-bold">Let's make it lighter</h2>
+      </div>
+      <div class="w-10 h-10"></div>
+    </div>
+
+    <!-- Context Ribbon: Original Overwhelming Task -->
+    <div class="w-full bg-surface-container-low rounded-2xl p-space-sm md:p-space-md flex items-center justify-between gap-3 border border-outline-variant/30">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 text-on-surface-variant">
+          <span class="material-symbols-outlined text-sm">filter_vintage</span>
+        </div>
+        <div class="truncate">
+          <span class="block text-label-sm font-label-sm text-outline uppercase tracking-wider">Original Task</span>
+          <p id="smallerOriginalTask" class="text-body-sm font-body-sm text-on-surface font-semibold truncate">Write opening sentence for Sociology reflection</p>
+        </div>
+      </div>
+      <span class="shrink-0 text-label-xs font-label-sm text-primary bg-primary-fixed/50 px-2.5 py-1 rounded-full border border-primary/10">Felt heavy</span>
+    </div>
+
+    <!-- AI Empathy Comfort Prompt Card -->
+    <div class="w-full bg-gradient-to-br from-surface-container-lowest via-surface to-secondary-fixed/20 rounded-3xl p-5 md:p-6 border border-outline-variant/40 soft-pillow-shadow relative overflow-hidden">
+      <div class="absolute -right-12 -top-12 w-36 h-36 bg-secondary-container/30 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex items-start gap-3.5 relative z-10">
+        <div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 shadow-sm">
+          <span class="material-symbols-outlined text-secondary text-xl">self_improvement</span>
+        </div>
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-secondary text-label-sm font-label-sm font-medium">
+            <span>Gentle breakdown</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          </div>
+          <p id="smallerEncouragement" class="text-body-lg font-body-lg text-on-surface leading-snug pt-1">
+            No problem at all! Let's slice this into even tinier pieces. Which of these feels easiest right now?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Micro-Steps Choice Container -->
+    <div id="smallerStepsList" aria-label="Micro-steps selection" class="w-full flex flex-col gap-3" role="radiogroup">
+      <!-- Dynamically populated steps -->
+    </div>
+
+    <!-- Action Button -->
+    <div class="mt-4 flex flex-col items-center gap-3">
+      <button id="applyStepBtn" onclick="applySelectedSubstep()" type="button" class="w-full max-w-sm py-3.5 px-7 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
+        <span id="applyStepBtnText">Start with Step 1</span>
+        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+      </button>
+      <p class="text-body-sm font-body-sm italic text-on-surface-variant/80 flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-sm">cloud</span>
+        <span>You only ever have to do one tiny piece at a time.</span>
+      </p>
+    </div>
+    <!-- Dedicated spacer to ensure bottom nav bar never overlaps content -->
+    <div class="h-24 md:h-28 w-full shrink-0" aria-hidden="true"></div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- SCREEN 4: CELEBRATION                     -->
+  <!-- ========================================== -->
+  <main id="screen-celebration" class="screen-fade hidden flex-1 flex flex-col justify-start items-center px-gutter-mobile md:px-gutter pt-14 md:pt-18 pb-64 md:pb-72 max-w-lg mx-auto w-full relative z-10 text-center">
+    <!-- Aura & Sprout Celebration Hub -->
+    <div class="relative flex items-center justify-center mb-6 mt-2">
+      <div class="absolute w-48 h-48 rounded-full bg-secondary-container/40 blur-2xl"></div>
+      <div class="absolute w-36 h-36 rounded-full bg-primary-fixed/40 blur-xl"></div>
+      <div class="absolute w-28 h-28 rounded-full bg-tertiary-fixed/30 blur-lg"></div>
+
+      <!-- Sprout Illustration Card -->
+      <div class="relative z-10 p-4 bg-surface-container-lowest/90 rounded-3xl shadow-[0_8px_32px_-4px_rgba(74,107,93,0.12)] border border-primary/10 float-sprout">
+        <img src="/static/sprout.svg" alt="Growing Focus Plant" class="w-32 h-32 md:w-36 md:h-36 object-contain"/>
+      </div>
+    </div>
+
+    <!-- Celebration Progress Pill Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-low border border-primary/15 text-primary mb-5 shadow-sm transition-all duration-300">
+      <span class="text-sm">🌱</span>
+      <span id="celebrationPillText" class="font-label-md text-label-md text-primary">Your focus plant grew a new leaf today</span>
+    </div>
+
+    <!-- Warm Loving Headline & Subcopy -->
+    <div class="space-y-3 mb-6 max-w-sm">
+      <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">
+        Look at you go!
+      </h1>
+      <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        You took action when it felt tough. That single step broke the freeze, and that's huge.
+      </p>
+    </div>
+
+    <!-- Reassuring Mindful Breathing Cue Card -->
+    <div class="w-full bg-surface-container-lowest/90 border border-primary/10 rounded-2xl p-4 mb-8 shadow-sm flex items-center justify-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-secondary-container/50 flex items-center justify-center text-secondary flex-shrink-0">
+        <span class="material-symbols-outlined text-lg">self_improvement</span>
+      </div>
+      <p class="font-body-sm text-body-sm text-secondary text-left font-medium">
+        Take a deep breath in... let your shoulders drop.
+      </p>
+    </div>
+
+    <!-- Actions Area -->
+    <div class="w-full flex flex-col items-center gap-3">
+      <!-- Primary Action: Next Step -->
+      <button onclick="handleCelebrationNext()" class="w-full max-w-xs rounded-full bg-primary-container text-surface-container-lowest font-label-lg text-label-lg py-3.5 px-7 shadow-[0_6px_20px_-2px_rgba(74,107,93,0.25)] hover:bg-primary transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2" type="button">
+        <span id="nextStepBtnLabel">Next step when you're ready</span>
+        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+      </button>
+      <!-- Secondary Action: Rest for a bit -->
+      <button onclick="navigateTo('summary')" class="w-full max-w-xs rounded-full bg-transparent hover:bg-surface-container-high/40 text-secondary font-label-md text-label-md py-2.5 px-6 transition-colors duration-200 active:scale-95 flex items-center justify-center gap-1.5" type="button">
+        <span class="material-symbols-outlined text-base">coffee</span>
+        <span>I want to rest for a bit</span>
+      </button>
+    </div>
+    <!-- Dedicated spacer to ensure bottom nav bar never overlaps content -->
+    <div class="h-24 md:h-28 w-full shrink-0" aria-hidden="true"></div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- SCREEN 5: END OF DAY SUMMARY              -->
+  <!-- ========================================== -->
+  <main id="screen-summary" class="screen-fade hidden relative z-10 flex-1 max-w-[680px] w-full mx-auto px-margin-mobile md:px-6 pt-20 md:pt-24 pb-64 md:pb-72 space-y-6">
+    <!-- Header Banner Card -->
+    <section class="bg-surface-container-lowest rounded-3xl p-6 md:p-8 soft-pillow-shadow border border-primary/10 relative overflow-hidden text-center">
+      <div class="absolute -top-12 -right-12 w-36 h-36 bg-secondary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-primary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-surface-container-low mb-4 text-secondary">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">hotel_class</span>
+      </div>
+      <h1 id="summaryTitle" class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight mb-2">
+        You finished 0 things today ✨
+      </h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto leading-relaxed">
+        Even on heavy days, you showed up for yourself. No unfinished tasks are judged here.
+      </p>
+      
+      <!-- Harmony Dots -->
+      <div id="summaryDotsContainer" class="mt-6 flex items-center justify-center gap-2">
+        <!-- Rendered dynamically -->
+        <span class="text-xs font-label-md text-secondary ml-1.5">Gentle completeness</span>
+      </div>
+    </section>
+
+    <!-- Completed Wins Section -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between px-2">
+        <span class="font-label-lg text-label-lg text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-base">eco</span>
+          Today's Quiet Wins
+        </span>
+        <span id="summaryWinsCount" class="font-label-sm text-label-sm text-outline">0 gentle steps</span>
+      </div>
+
+      <div id="summaryWinsList" class="grid grid-cols-1 gap-2.5">
+        <!-- Completed tasks rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Affirmation Callout Card -->
+    <section class="bg-secondary-fixed/40 border border-secondary-container rounded-2xl p-5 md:p-6 custom-warm-shadow flex items-center gap-4">
+      <div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary shrink-0 shadow-sm">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+      </div>
+      <div class="flex-1">
+        <p class="font-body-lg text-body-lg text-on-secondary-fixed font-medium leading-snug">
+          "Rest is just as productive as work. Close your laptop—tomorrow is a brand new page."
+        </p>
+        <span class="inline-block mt-2 font-label-sm text-label-sm text-secondary">A gentle bedtime reminder</span>
+      </div>
+    </section>
+
+    <!-- Primary Action: Put OneThing to Sleep -->
+    <div class="pt-2 pb-6 text-center">
+      <button id="putToSleepBtn" onclick="handlePutToSleep()" class="w-full max-w-md mx-auto py-3.5 px-7 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all duration-300 hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2.5">
+        <span>Put OneThing to sleep 🌙</span>
+      </button>
+      <p class="font-body-sm text-body-sm text-outline mt-3 flex items-center justify-center gap-1">
+        <span class="material-symbols-outlined text-xs">alarm_off</span> Your alarms are set gently. Sleep warmly.
+      </p>
+    </div>
+    <!-- Dedicated spacer to ensure bottom nav bar never overlaps content -->
+    <div class="h-24 md:h-28 w-full shrink-0" aria-hidden="true"></div>
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- PROCESSING OVERLAY MODAL                   -->
+  <!-- ========================================== -->
+  <div id="processingOverlay" class="fixed inset-0 z-50 bg-background/85 backdrop-blur-md hidden flex-col items-center justify-center p-gutter">
+    <div class="w-full max-w-md bg-surface-container-lowest rounded-3xl p-space-lg shadow-xl border border-outline-variant/30 text-center flex flex-col items-center relative overflow-hidden">
+      <!-- Decorative aura -->
+      <div class="absolute -top-16 -right-16 w-36 h-36 rounded-full bg-secondary-fixed/40 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-36 h-36 rounded-full bg-primary-fixed/40 blur-2xl pointer-events-none"></div>
+      
+      <!-- Pulsing Lavender/Sage Rings -->
+      <div class="relative w-24 h-24 mb-6 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-secondary-container/50 animate-ping opacity-40"></div>
+        <div class="absolute inset-2 rounded-full bg-primary-fixed/60 animate-gentle-pulse"></div>
+        <div class="relative w-14 h-14 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-md">
+          <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+        </div>
+      </div>
+
+      <h3 id="overlayHeading" class="font-headline-md text-headline-md text-primary mb-2">Sorting your thoughts...</h3>
+      <p id="overlaySubtext" class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-xs leading-relaxed">
+        Finding the easiest, gentlest first step for you. No pressure to finish everything today.
+      </p>
+
+      <div class="w-full bg-surface-container-low rounded-full h-2 mb-6 overflow-hidden">
+        <div id="progressBar" class="bg-primary-container h-full rounded-full transition-all duration-700 ease-out" style="width: 25%;"></div>
+      </div>
+
+      <div class="flex items-center gap-2 text-outline font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-body-sm animate-spin">sync</span>
+        <span id="reassuranceStep">Filtering high-stress noise...</span>
+      </div>
+
+      <button onclick="hideProcessing()" type="button" class="mt-6 text-on-surface-variant hover:text-primary font-label-md text-label-md underline underline-offset-4 decoration-outline-variant transition-colors">
+        Keep typing for a moment
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- SHARED BOTTOM NAVIGATION BAR               -->
+  <!-- ========================================== -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around px-gutter-mobile py-space-xs max-w-md mx-auto bg-surface-container-lowest/90 backdrop-blur-lg rounded-t-2xl shadow-sm border-t border-outline-variant/15">
+    <!-- Tab 1: Dump -->
+    <button id="nav-dump" onclick="navigateTo('dump')" class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-full px-5 py-1.5 transition-all duration-300">
+      <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+      <span class="font-label-sm text-label-sm mt-0.5">Dump</span>
+    </button>
+    <!-- Tab 2: Focus -->
+    <button id="nav-focus" onclick="navigateTo('focus')" class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low rounded-full">
+      <span class="material-symbols-outlined text-xl">radio_button_checked</span>
+      <span class="font-label-sm text-label-sm mt-0.5">Focus</span>
+    </button>
+    <!-- Tab 3: Reflect -->
+    <button id="nav-reflect" onclick="navigateTo('summary')" class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low rounded-full">
+      <span class="material-symbols-outlined text-xl">nightlight</span>
+      <span class="font-label-sm text-label-sm mt-0.5">Reflect</span>
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- FRONT-END CLIENT STATE & CONTROLLER        -->
+  <!-- ========================================== -->
+  <script>
+    // State in memory
+    const state = {
+      tasks: [],
+      currentIndex: 0,
+      completedTasks: [],
+      currentSubsteps: [],
+      selectedSubstepIndex: 0,
+      activeScreen: 'dump'
+    };
+
+    // Helper: format hour/time nicely
+    function getFriendlyTime(date = new Date()) {
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      const minStr = minutes < 10 ? '0' + minutes : minutes;
+      return `${hours}:${minStr} ${ampm}`;
+    }
+
+    function getContextHour() {
+      const hourSelect = document.getElementById('simulatedHourSelect');
+      if (hourSelect && hourSelect.value !== 'auto') {
+        return parseInt(hourSelect.value, 10);
+      }
+      return new Date().getHours();
+    }
+
+    function getTimeGreeting() {
+      const hr = getContextHour();
+      if (hr >= 5 && hr < 12) return "Good morning";
+      if (hr >= 12 && hr < 17) return "Good afternoon";
+      if (hr >= 17 && hr < 22) return "Good evening";
+      return "Hey night owl";
+    }
+
+    function updateGreetingAndTopBadge() {
+      const greetingEl = document.getElementById('userGreeting');
+      if (greetingEl) {
+        greetingEl.textContent = `${getTimeGreeting()}, feeling a bit swamped?`;
+      }
+      updateTopBadge();
+    }
+
+    function prefillDemoDump() {
+      const textarea = document.getElementById('dumpTextarea');
+      textarea.value = `biology lab report due Friday at 5pm and I haven't even opened the spreadsheet yet
+need to email Prof. Davis to ask if a 24h extension is realistic
+room feels upside down, laundry is overflowing from basket onto the floor
+study for psychology midterm formulas chapter 4
+pick up allergy prescription from campus pharmacy
+forgot to call mom back yesterday`;
+      updateThoughtCount();
+      showToast("Thoughts refreshed", "Pre-filled realistic student thoughts for your demo.");
+    }
+
+    // Initialize UI on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Dynamic Greeting based on context time
+      updateGreetingAndTopBadge();
+
+      // Live textarea line counter
+      const textarea = document.getElementById('dumpTextarea');
+      if (textarea) {
+        textarea.addEventListener('input', updateThoughtCount);
+        updateThoughtCount();
+      }
+
+      // Initial top time
+      updateTopBadge();
+      setInterval(updateTopBadge, 60000);
+    });
+
+    function updateTopBadge() {
+      const topBadge = document.getElementById('topStatusText');
+      if (state.activeScreen === 'summary') {
+        topBadge.textContent = `Evening Wind Down · ${getFriendlyTime()}`;
+      } else {
+        topBadge.textContent = "Take a breath · It's okay";
+      }
+    }
+
+    function updateThoughtCount() {
+      const textarea = document.getElementById('dumpTextarea');
+      const counterEl = document.getElementById('thoughtCount');
+      if (!textarea || !counterEl) return;
+      const lines = textarea.value.split('\n').filter(l => l.trim().length > 0);
+      const count = lines.length;
+      counterEl.textContent = `${count} unburdened thought${count === 1 ? '' : 's'}`;
+    }
+
+    function insertTrigger(text) {
+      const textarea = document.getElementById('dumpTextarea');
+      if (textarea.value.trim().length > 0) {
+        textarea.value += '\n' + text;
+      } else {
+        textarea.value = text;
+      }
+      textarea.focus();
+      updateThoughtCount();
+    }
+
+    // Screen Router / Navigation
+    function navigateTo(screenName) {
+      state.activeScreen = screenName;
+      const screens = ['dump', 'focus', 'smaller', 'celebration', 'summary'];
+      
+      screens.forEach(s => {
+        const el = document.getElementById(`screen-${s}`);
+        if (el) {
+          if (s === screenName) {
+            el.classList.remove('hidden');
+          } else {
+            el.classList.add('hidden');
+          }
+        }
+      });
+
+      // Update Nav Bar highlights
+      const navDump = document.getElementById('nav-dump');
+      const navFocus = document.getElementById('nav-focus');
+      const navReflect = document.getElementById('nav-reflect');
+
+      const activeClass = 'text-primary bg-primary-container/20 font-bold';
+      const inactiveClass = 'text-on-surface-variant hover:bg-surface-container-low font-normal';
+
+      [navDump, navFocus, navReflect].forEach(btn => {
+        btn.className = 'flex flex-col items-center justify-center px-5 py-1.5 transition-all duration-300 rounded-full ' + inactiveClass;
+      });
+
+      if (screenName === 'dump') {
+        navDump.className = 'flex flex-col items-center justify-center px-5 py-1.5 transition-all duration-300 rounded-full ' + activeClass;
+      } else if (screenName === 'focus' || screenName === 'smaller' || screenName === 'celebration') {
+        navFocus.className = 'flex flex-col items-center justify-center px-5 py-1.5 transition-all duration-300 rounded-full ' + activeClass;
+      } else if (screenName === 'summary') {
+        navReflect.className = 'flex flex-col items-center justify-center px-5 py-1.5 transition-all duration-300 rounded-full ' + activeClass;
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      updateTopBadge();
+
+      // If opening summary, render wins
+      if (screenName === 'summary') {
+        renderSummaryWins();
+      }
+    }
+
+    // Toast Notifications
+    function showToast(title, message, isError = false) {
+      const toast = document.getElementById('toastMessage');
+      const tTitle = document.getElementById('toastTitle');
+      const tBody = document.getElementById('toastBody');
+      const tIcon = document.getElementById('toastIcon');
+
+      tTitle.textContent = title;
+      tBody.textContent = message;
+      tIcon.textContent = isError ? 'cloud_off' : 'spa';
+
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        hideToast();
+      }, 6000);
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('toastMessage');
+      toast.classList.add('hidden');
+    }
+
+    // Processing Overlay Controller
+    let progressTimer = null;
+    function showProcessing(title = "Sorting your thoughts...", subtext = "Finding the easiest, gentlest first step for you.") {
+      const overlay = document.getElementById('processingOverlay');
+      const bar = document.getElementById('progressBar');
+      const stepText = document.getElementById('reassuranceStep');
+      const head = document.getElementById('overlayHeading');
+      const sub = document.getElementById('overlaySubtext');
+
+      head.textContent = title;
+      sub.textContent = subtext;
+
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+
+      let step = 1;
+      bar.style.width = '25%';
+      stepText.innerText = 'Filtering high-stress noise...';
+
+      if (progressTimer) clearInterval(progressTimer);
+      progressTimer = setInterval(() => {
+        step++;
+        if (step === 2) {
+          bar.style.width = '65%';
+          stepText.innerText = 'Dissolving big projects into friendly bits...';
+        } else if (step === 3) {
+          bar.style.width = '90%';
+          stepText.innerText = 'Finding one gentle win that fits right now...';
+        }
+      }, 1200);
+    }
+
+    function hideProcessing() {
+      if (progressTimer) clearInterval(progressTimer);
+      const overlay = document.getElementById('processingOverlay');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+    }
+
+    // API Call: POST /api/breakdown
+    async function submitBrainDump() {
+      const textarea = document.getElementById('dumpTextarea');
+      const text = textarea.value.trim();
+
+      if (!text) {
+        showToast("Gentle reminder", "Please enter a few racing thoughts or pick a quick trigger above so we can sort them together.");
+        return;
+      }
+
+      showProcessing("Sorting your thoughts...", "Unburdening your mind. We'll surface just one next gentle step.");
+
+      try {
+        const hourSelect = document.getElementById('simulatedHourSelect');
+        let selectedHour = new Date().getHours();
+        if (hourSelect && hourSelect.value !== 'auto') {
+          selectedHour = parseInt(hourSelect.value, 10);
+        }
+
+        const response = await fetch('/api/breakdown', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: text,
+            local_hour: selectedHour
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "A gentle pause: We couldn't connect right now.");
+        }
+
+        if (!data.tasks || data.tasks.length === 0) {
+          throw new Error("No tasks returned. Feel free to add a bit more detail to your dump.");
+        }
+
+        state.tasks = data.tasks;
+        state.currentIndex = 0;
+
+        hideProcessing();
+        renderFocusTask();
+        navigateTo('focus');
+
+      } catch (err) {
+        hideProcessing();
+        showToast("Take a deep breath", err.message || "Something went wrong while sorting. Let's try again in a moment.", true);
+      }
+    }
+
+    // Render Current Focus Task (Screen 2)
+    function renderFocusTask() {
+      if (!state.tasks || state.tasks.length === 0 || state.currentIndex >= state.tasks.length) {
+        // If finished all tasks, head to summary
+        navigateTo('summary');
+        return;
+      }
+
+      const task = state.tasks[state.currentIndex];
+      const titleEl = document.getElementById('focusTaskTitle');
+      const descEl = document.getElementById('focusTaskDescription');
+      const pillEl = document.getElementById('focusTaskPill');
+      const timeDisplay = document.getElementById('focusTimeDisplay');
+
+      titleEl.textContent = task.title;
+      descEl.textContent = task.description || "The hardest part is simply starting. Take it nice and easy.";
+
+      // Soft pill like "Best around afternoon · Campus" or "Rest suggestion"
+      const isRest = Boolean(task.is_rest_suggestion) || task.display_time_tag === 'Rest suggestion';
+      if (isRest) {
+        pillEl.innerHTML = `
+          <span class="font-medium text-primary">🌿 Rest suggestion</span>
+        `;
+      } else {
+        const timeTag = task.display_time_tag || (task.predicted_time === 'night' ? 'Best for late night' : `Best around ${task.predicted_time || 'now'}`);
+        const locTag = task.display_location || (task.predicted_location === 'work' ? 'Campus' : (task.predicted_location ? task.predicted_location.charAt(0).toUpperCase() + task.predicted_location.slice(1) : 'Home'));
+        const confStr = task.time_confidence ? ` · ${Math.round(task.time_confidence * 100)}% fit` : '';
+
+        pillEl.innerHTML = `
+          <span class="font-medium text-primary">🌿 ${timeTag}</span>
+          <span class="text-outline-variant">·</span>
+          <span class="text-on-surface-variant font-semibold">${locTag}</span>
+          <span class="text-xs opacity-70 ml-0.5 text-outline">${confStr}</span>
+        `;
+      }
+
+      // Optional Action Shortcut button below task text
+      const actionContainer = document.getElementById('focusTaskActionContainer');
+      const actionBtn = document.getElementById('focusTaskActionBtn');
+      const actionLabel = document.getElementById('focusTaskActionLabel');
+
+      const action = task.action;
+      const isScreenAway = isRest || (task.title && /sleep|wind down|read before bed|put phone|bedtime|rest|breathe|walk|stretch|unwind|nap/i.test(task.title));
+
+      if (action && action.type && !isScreenAway && actionContainer && actionBtn && actionLabel) {
+        if (action.type === 'email') {
+          const subject = encodeURIComponent(action.subject || 'Note');
+          const body = encodeURIComponent(action.body || '');
+          actionBtn.href = `mailto:?subject=${subject}&body=${body}`;
+          actionLabel.textContent = '✉️ Open draft';
+          actionContainer.classList.remove('hidden');
+        } else if (action.type === 'maps') {
+          const query = encodeURIComponent(action.query || task.title || '');
+          actionBtn.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+          actionLabel.textContent = '📍 Directions';
+          actionContainer.classList.remove('hidden');
+        } else if (action.type === 'calendar') {
+          const text = encodeURIComponent(action.title || task.title || '');
+          const details = encodeURIComponent(task.description || '');
+          actionBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&details=${details}`;
+          actionLabel.textContent = '📅 Add to calendar';
+          actionContainer.classList.remove('hidden');
+        } else {
+          actionContainer.classList.add('hidden');
+        }
+      } else {
+        if (actionContainer) {
+          actionContainer.classList.add('hidden');
+        }
+      }
+    }
+
+    // Mark current task done -> Celebration Screen
+    function markCurrentTaskDone() {
+      if (state.tasks.length === 0) return;
+      const current = state.tasks[state.currentIndex];
+
+      // Record to completed history
+      const now = new Date();
+      const rawLoc = current.predicted_location || current.default_location_hint || 'home';
+      const loc = rawLoc.toLowerCase() === 'work' ? 'Campus' : (rawLoc.charAt(0).toUpperCase() + rawLoc.slice(1));
+
+      state.completedTasks.push({
+        id: current.id,
+        title: current.title,
+        location: loc,
+        timeFormatted: getFriendlyTime(now),
+        timestamp: now
+      });
+
+      // Update next button label in celebration
+      const hasMore = (state.currentIndex + 1) < state.tasks.length;
+      const nextBtnLabel = document.getElementById('nextStepBtnLabel');
+      if (nextBtnLabel) {
+        nextBtnLabel.textContent = hasMore ? "Next step when you're ready" : "See today's quiet wins";
+      }
+
+      // Fire celebratory confetti!
+      triggerConfettiBurst();
+
+      navigateTo('celebration');
+    }
+
+    // Celebration Confetti
+    function triggerConfettiBurst() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 55,
+          spread: 70,
+          origin: { y: 0.65 },
+          colors: ['#4A6B5D', '#8FA89B', '#7B7295', '#D8D2E7', '#E9C46A', '#F4A261'],
+          disableForReducedMotion: true
+        });
+      }
+    }
+
+    function handleCelebrationNext() {
+      state.currentIndex++;
+      if (state.currentIndex < state.tasks.length) {
+        renderFocusTask();
+        navigateTo('focus');
+      } else {
+        navigateTo('summary');
+      }
+    }
+
+    // Make It Smaller -> Calls POST /api/smaller & routes to Screen 3
+    async function makeTaskSmaller() {
+      if (state.tasks.length === 0) return;
+      const current = state.tasks[state.currentIndex];
+
+      showProcessing("Making it lighter...", "Slicing this step down into micro-actions with zero friction.");
+
+      try {
+        const response = await fetch('/api/smaller', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task: current.title })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Could not make task smaller right now.");
+        }
+
+        hideProcessing();
+        renderSmallerScreen(data, current.title);
+        navigateTo('smaller');
+
+      } catch (err) {
+        hideProcessing();
+        showToast("A gentle pause", err.message || "We couldn't break it down right now, but you can still do just 1 minute of it.", true);
+      }
+    }
+
+    // Render Screen 3: Break it down
+    function renderSmallerScreen(data, originalTitle) {
+      document.getElementById('smallerOriginalTask').textContent = originalTitle;
+      document.getElementById('smallerEncouragement').textContent = data.encouragement || "No problem at all! Let's slice this into even tinier pieces. Which of these feels easiest right now?";
+
+      state.currentSubsteps = data.steps || [];
+      state.selectedSubstepIndex = 0;
+
+      const container = document.getElementById('smallerStepsList');
+      container.innerHTML = '';
+
+      state.currentSubsteps.forEach((step, idx) => {
+        const isSelected = idx === 0;
+        const stepCard = document.createElement('div');
+        stepCard.id = `step-card-${idx}`;
+        stepCard.onclick = () => selectSubstep(idx);
+        stepCard.className = `group relative rounded-3xl p-5 transition-all duration-300 cursor-pointer ${
+          isSelected 
+            ? 'bg-surface-container-lowest border-2 border-primary-container soft-shadow' 
+            : 'bg-surface-container-lowest/80 hover:bg-surface-container-lowest border border-outline-variant/30 soft-shadow hover:border-outline-variant'
+        }`;
+
+        const radioIndicator = isSelected
+          ? `<div class="mt-1 w-6 h-6 rounded-full border-2 border-primary-container flex items-center justify-center shrink-0 bg-surface-container-lowest">
+               <div class="w-3 h-3 rounded-full bg-primary-container"></div>
+             </div>`
+          : `<div class="mt-1 w-6 h-6 rounded-full border-2 border-outline-variant/80 flex items-center justify-center shrink-0 bg-surface">
+               <div class="w-2.5 h-2.5 rounded-full bg-transparent group-hover:bg-outline-variant/40 transition-colors"></div>
+             </div>`;
+
+        const badge = step.tag
+          ? `<span class="inline-flex items-center gap-1 bg-on-primary-container/40 text-primary px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold">
+               <span class="material-symbols-outlined text-xs">recommend</span>
+               ${step.tag}
+             </span>`
+          : '';
+
+        const iconRight = isSelected
+          ? `<span class="material-symbols-outlined text-primary-container opacity-90 text-lg shrink-0">check_circle</span>`
+          : `<span class="material-symbols-outlined text-outline-variant opacity-40 group-hover:opacity-80 transition-opacity text-lg shrink-0">radio_button_unchecked</span>`;
+
+        stepCard.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-start gap-3.5">
+              ${radioIndicator}
+              <div class="space-y-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-label-md font-label-md ${isSelected ? 'text-primary' : 'text-on-surface-variant'} font-bold">Step ${step.step || (idx + 1)}</span>
+                  ${badge}
+                </div>
+                <p class="text-body-md font-body-md text-on-surface font-semibold leading-relaxed">${step.title}</p>
+                <div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline">
+                  <span class="material-symbols-outlined text-sm">cloud_download</span>
+                  <span>${step.subtitle || 'Takes 30 seconds · No brain power needed'}</span>
+                </div>
+              </div>
+            </div>
+            ${iconRight}
+          </div>
+        `;
+        container.appendChild(stepCard);
+      });
+
+      updateApplyStepButton();
+    }
+
+    function selectSubstep(idx) {
+      state.selectedSubstepIndex = idx;
+      const container = document.getElementById('smallerStepsList');
+      Array.from(container.children).forEach((child, i) => {
+        const isSelected = i === idx;
+        child.className = `group relative rounded-3xl p-5 transition-all duration-300 cursor-pointer ${
+          isSelected 
+            ? 'bg-surface-container-lowest border-2 border-primary-container soft-shadow' 
+            : 'bg-surface-container-lowest/80 hover:bg-surface-container-lowest border border-outline-variant/30 soft-shadow hover:border-outline-variant'
+        }`;
+        
+        // Update inner radio
+        const radio = child.querySelector('.shrink-0');
+        if (radio) {
+          radio.innerHTML = isSelected 
+            ? '<div class="w-3 h-3 rounded-full bg-primary-container"></div>'
+            : '<div class="w-2.5 h-2.5 rounded-full bg-transparent group-hover:bg-outline-variant/40 transition-colors"></div>';
+        }
+      });
+      updateApplyStepButton();
+    }
+
+    function updateApplyStepButton() {
+      const btnText = document.getElementById('applyStepBtnText');
+      btnText.textContent = `Start with Step ${state.selectedSubstepIndex + 1}`;
+    }
+
+    // Apply Chosen Substep back to One Task Focus
+    function applySelectedSubstep() {
+      if (state.currentSubsteps.length === 0) return;
+      const chosen = state.currentSubsteps[state.selectedSubstepIndex];
+      
+      // Update current task in state
+      state.tasks[state.currentIndex].title = chosen.title;
+      state.tasks[state.currentIndex].description = chosen.subtitle || "Just this tiny slice. You don't have to finish the rest right now.";
+
+      renderFocusTask();
+      navigateTo('focus');
+      showToast("Step simplified", "Focused on just this tiny step. You've got this!");
+    }
+
+    // Render Screen 5: End of Day Summary
+    function renderSummaryWins() {
+      const count = state.completedTasks.length;
+      document.getElementById('summaryTitle').textContent = `You finished ${count} thing${count === 1 ? '' : 's'} today ✨`;
+      document.getElementById('summaryWinsCount').textContent = `${count} gentle step${count === 1 ? '' : 's'}`;
+
+      // Render Harmony dots
+      const dotsContainer = document.getElementById('summaryDotsContainer');
+      let dotsHtml = '';
+      const dotCount = Math.max(1, count);
+      for (let i = 0; i < dotCount; i++) {
+        dotsHtml += `<span class="w-2.5 h-2.5 rounded-full ${i < count ? 'bg-primary-container' : 'bg-surface-container-highest'}"></span>`;
+      }
+      dotsHtml += `<span class="text-xs font-label-md text-secondary ml-1.5">${count > 0 ? 'Gentle completeness' : 'Peaceful resting'}</span>`;
+      dotsContainer.innerHTML = dotsHtml;
+
+      // Render Completed Tasks list
+      const listContainer = document.getElementById('summaryWinsList');
+      listContainer.innerHTML = '';
+
+      if (count === 0) {
+        listContainer.innerHTML = `
+          <div class="bg-surface-container-lowest rounded-2xl p-6 text-center text-on-surface-variant border border-primary/5">
+            <span class="material-symbols-outlined text-3xl text-secondary mb-2">bedtime</span>
+            <p class="font-body-md font-medium">No tasks completed yet today.</p>
+            <p class="font-body-sm text-outline mt-1">Taking a break and resting is just as important. Be kind to yourself.</p>
+          </div>
+        `;
+        return;
+      }
+
+      state.completedTasks.forEach((item) => {
+        const article = document.createElement('article');
+        article.className = 'bg-surface-container-lowest rounded-2xl p-4 soft-pillow-shadow border border-primary/5 flex items-start gap-3.5 transition-all duration-300 hover:border-primary/20';
+        article.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-primary-fixed/60 flex items-center justify-center text-primary mt-0.5 shrink-0">
+            <span class="material-symbols-outlined text-sm font-bold" style="font-variation-settings: 'FILL' 1;">done</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h2 class="font-headline-sm text-body-md text-on-surface leading-snug">${item.title}</h2>
+            <p class="font-body-sm text-body-sm text-outline flex items-center gap-1 mt-0.5">
+              <span class="material-symbols-outlined text-xs">location_on</span> ${item.location} · ${item.timeFormatted}
+            </p>
+          </div>
+          <span class="material-symbols-outlined text-secondary/40 text-lg">spa</span>
+        `;
+        listContainer.appendChild(article);
+      });
+    }
+
+    // Sleep button
+    function handlePutToSleep() {
+      const btn = document.getElementById('putToSleepBtn');
+      btn.innerHTML = `<span>Rest well, friend... 💤</span>`;
+      btn.classList.add('opacity-75', 'cursor-default');
+      showToast("Goodnight", "All tasks will stay warm until morning. Sleep peacefully.");
+    }
+
+    // Mindful Somatic cue trigger
+    function triggerBreathingCue() {
+      showToast("Mindful Exhale", "Breathe in softly for 4 seconds... hold for 4... and gently let go.");
+    }
+  </script>
+</body>
+</html>

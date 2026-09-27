@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OneThing - Celebration</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..800;1,6..12,300..800&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#e2d7ff",
+            "on-secondary-fixed-variant": "#4a4262",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-container": "#805d3f",
+            "outline-variant": "#c1c8c3",
+            "tertiary": "#66452a",
+            "on-error": "#ffffff",
+            "outline": "#727974",
+            "on-background": "#1b1c1a",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#c6ead8",
+            "on-secondary-fixed": "#1e1734",
+            "on-error-container": "#93000a",
+            "surface-tint": "#446557",
+            "secondary": "#625a7b",
+            "on-tertiary-fixed-variant": "#5f4024",
+            "secondary-fixed-dim": "#ccc1e8",
+            "surface-container": "#efeeeb",
+            "on-primary-fixed": "#002116",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#2d1601",
+            "inverse-on-surface": "#f2f0ed",
+            "primary-fixed-dim": "#abcebe",
+            "surface-container-high": "#eae8e5",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#c6ebd9",
+            "on-tertiary-container": "#ffdbc0",
+            "inverse-primary": "#abcebe",
+            "surface": "#fbf9f6",
+            "on-surface-variant": "#414844",
+            "primary": "#325346",
+            "tertiary-fixed-dim": "#ebbe9a",
+            "secondary-fixed": "#e8ddff",
+            "inverse-surface": "#30312f",
+            "error": "#ba1a1a",
+            "background": "#fbf9f6",
+            "on-secondary-container": "#645c7e",
+            "primary-container": "#4a6b5d",
+            "surface-bright": "#fbf9f6",
+            "tertiary-fixed": "#ffdcc2",
+            "surface-container-highest": "#e4e2df",
+            "on-surface": "#1b1c1a",
+            "surface-variant": "#e4e2df",
+            "on-primary-fixed-variant": "#2d4d40",
+            "surface-dim": "#dbdad7"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1.25rem",
+            "space-sm": "0.75rem",
+            "margin": "3rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem",
+            "space-xl": "3.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "label-md": ["Quicksand"],
+            "display-mobile": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "label-sm": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "headline-sm": ["Quicksand"],
+            "body-lg": ["Nunito Sans"],
+            "headline-lg-mobile": ["Quicksand"],
+            "display": ["Quicksand"],
+            "headline-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "body-md": ["Nunito Sans"]
+          },
+          "fontSize": {
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-lg": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "600" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-6px) scale(1.01); }
+    }
+    @keyframes gentleGlow {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.08); }
+    }
+    @keyframes slowBreathe {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.02); opacity: 1; }
+    }
+    .float-aura {
+      animation: gentleGlow 5s ease-in-out infinite;
+    }
+    .float-sprout {
+      animation: gentleFloat 4.5s ease-in-out infinite;
+    }
+    .breathe-cue {
+      animation: slowBreathe 6s ease-in-out infinite;
+    }
+    .ambient-dot {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-secondary-container selection:text-on-secondary-fixed min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Ambient Soft Pastel Confetti & Sparkles -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="ambient-dot w-3 h-3 bg-secondary-container/80 top-24 left-[15%] animate-pulse" style="animation-duration: 4s;"></div>
+<div class="ambient-dot w-2 h-2 bg-tertiary-fixed/90 top-36 right-[18%] animate-pulse" style="animation-duration: 5.5s;"></div>
+<div class="ambient-dot w-3.5 h-3.5 bg-primary-fixed top-[45%] left-[8%] animate-pulse" style="animation-duration: 6s;"></div>
+<div class="ambient-dot w-2.5 h-2.5 bg-secondary-fixed-dim/70 top-[38%] right-[12%] animate-pulse" style="animation-duration: 3.5s;"></div>
+<div class="ambient-dot w-4 h-4 bg-tertiary-fixed/60 bottom-[28%] left-[22%] animate-pulse" style="animation-duration: 5s;"></div>
+<div class="ambient-dot w-2 h-2 bg-primary-fixed-dim bottom-[35%] right-[20%] animate-pulse" style="animation-duration: 4.8s;"></div>
+<div class="ambient-dot w-3 h-3 bg-secondary-container/90 bottom-[18%] right-[32%] animate-pulse" style="animation-duration: 6.2s;"></div>
+</div>
+<!-- Shared Component: TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-gutter-mobile md:px-gutter max-w-2xl mx-auto h-16 bg-surface/80 backdrop-blur-md">
+<button aria-label="Calm breathing sanctuary" class="p-2 rounded-full hover:bg-surface-container transition-colors duration-300 transition-transform duration-200 ease-out active:scale-95 text-primary flex items-center justify-center" type="button">
+<span class="material-symbols-outlined" data-icon="spa">spa</span>
+</button>
+<div class="flex items-center gap-2">
+<img alt="OneThing Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WX9JKR0GbA09dLT-F4DzKucFW1yvv1fOHxGogT_YaEkYcA_4MxR1VMvJV5owbuNKBAm5YkJb1eVIjTvcdNU7mMGuGXJOhSp5T9kUMi4NTGaV1ukA-Fwt1tJl-nF9hD0S41FttcJNE-7Wgvrii3P4Ae9xQ1-TTjJVjvMeJo2r_9QvQASSkDHSLLMBbvWTrXXYV99TLItYmOCtj89ijqNdrakjeNFfphKOzXH4HZXcXINREPhe5YqCmCe88"/>
+</div>
+<button aria-label="Breathe and pause" class="p-2 rounded-full hover:bg-surface-container transition-colors duration-300 transition-transform duration-200 ease-out active:scale-95 text-primary flex items-center justify-center" type="button">
+<span class="material-symbols-outlined" data-icon="air">air</span>
+</button>
+</header>
+<!-- Central Focus Canvas: Celebration Screen -->
+<main class="flex-1 flex flex-col justify-center items-center px-gutter-mobile md:px-gutter pt-20 pb-28 max-w-lg mx-auto w-full relative z-10 text-center">
+<!-- Aura & Sprout Celebration Hub -->
+<div class="relative flex items-center justify-center mb-6 mt-2">
+<!-- Layered Soft Aura -->
+<div class="absolute w-48 h-48 rounded-full bg-secondary-container/40 blur-2xl float-aura"></div>
+<div class="absolute w-36 h-36 rounded-full bg-primary-fixed/40 blur-xl float-aura" style="animation-delay: -2s;"></div>
+<div class="absolute w-28 h-28 rounded-full bg-tertiary-fixed/30 blur-lg float-aura" style="animation-delay: -3.5s;"></div>
+<!-- Sparkle Icons Floating -->
+<div class="absolute -top-3 -right-2 text-secondary animate-bounce" style="animation-duration: 3s;">
+<span class="material-symbols-outlined text-xl" data-icon="sparkles" data-weight="fill" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+</div>
+<div class="absolute bottom-2 -left-4 text-primary animate-pulse" style="animation-duration: 4s;">
+<span class="material-symbols-outlined text-lg" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<!-- Sprout Illustration -->
+<div class="relative z-10 p-3 bg-surface-container-lowest/80 rounded-3xl shadow-[0_8px_32px_-4px_rgba(74,107,93,0.08)] border border-primary/10 float-sprout">
+<img alt="Growing Sprout Plant Illustration" class="w-32 h-32 md:w-36 md:h-36 object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X4C6uSItZnVjXh4pSzU8eeIC-oaDGKNBoBIXAGfeUC_v9Ph3YmM9I2vMTBfJLC0MhLiPt1ytGYnNJBFtB8ZtfI0s2q2ZqrtoIobkOzXS734odD5f-hXDdjlLTL3GEqKqhGav14_aWMgVgtDtbaL2nSaPo3FEZPoEcb0XK4rZE0DzfTgt_MMBlpJvYnji-Ocm5E4mX1OrATDDzQy4WVBi9GQcTfjxlrFQinD9GK_RPzQDu69ZXyyAwXJMU"/>
+</div>
+</div>
+<!-- Celebration Progress Pill Badge -->
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-low border border-primary/15 text-primary mb-5 shadow-sm transition-all duration-300">
+<span class="text-sm">🌱</span>
+<span class="font-label-md text-label-md text-primary">Your focus plant grew a new leaf today</span>
+</div>
+<!-- Warm Loving Headline & Subcopy -->
+<div class="space-y-3 mb-6 max-w-sm">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">
+        Look at you go!
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        You took action when it felt tough. That single step broke the freeze, and that's huge.
+      </p>
+</div>
+<!-- Reassuring Mindful Breathing Cue Card -->
+<div class="w-full bg-surface-container-lowest/90 border border-primary/10 rounded-2xl p-4 mb-8 shadow-[0_4px_20px_-2px_rgba(74,107,93,0.04)] breathe-cue flex items-center justify-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/50 flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-lg" data-icon="self_improvement">self_improvement</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary text-left font-medium">
+        Take a deep breath in... let your shoulders drop.
+      </p>
+</div>
+<!-- Actions Area -->
+<div class="w-full flex flex-col items-center gap-3">
+<!-- Primary Action: Gentle Focus Button -->
+<button class="w-full max-w-xs rounded-full bg-primary-container text-surface-container-lowest font-label-lg text-label-lg py-3.5 px-7 shadow-[0_6px_20px_-2px_rgba(74,107,93,0.25)] hover:bg-primary transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2" type="button">
+<span>Next step when you're ready</span>
+<span class="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary Action: Rest for a bit (Guilt-free pacing) -->
+<button class="w-full max-w-xs rounded-full bg-transparent hover:bg-surface-container-high/40 text-secondary font-label-md text-label-md py-2.5 px-6 transition-colors duration-200 active:scale-95 flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-base" data-icon="coffee">coffee</span>
+<span>I want to rest for a bit</span>
+</button>
+</div>
+</main>
+<!-- Shared Component: BottomNavBar -->
+<!-- Contextual State: Celebration of completed focus step -> 'Focus' destination is active -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-gutter-mobile py-space-xs max-w-md mx-auto bg-surface-container-lowest/90 backdrop-blur-lg rounded-t-lg shadow-sm">
+<!-- Item 1: Dump (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="edit_note">edit_note</span>
+<span class="font-label-sm text-label-sm mt-0.5">Dump</span>
+</a>
+<!-- Item 2: Focus (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-full px-5 py-1.5 transition-all duration-300 active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="radio_button_checked" data-weight="fill" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+<span class="font-label-sm text-label-sm mt-0.5 font-bold">Focus</span>
+</a>
+<!-- Item 3: Reflect (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="nightlight">nightlight</span>
+<span class="font-label-sm text-label-sm mt-0.5">Reflect</span>
+</a>
+</nav>
+<!-- Interactive Atmosphere Micro-logic -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Gentle subtle breathing click feedback
+      const nextBtn = document.querySelector('button');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          // Playful gentle response without urgency
+          console.log('Stepping forward gently with OneThing.');
+        });
+      }
+    });
+  </script>
+</body></html>

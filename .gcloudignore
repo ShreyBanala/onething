@@ -1,0 +1,36 @@
+.gcloudignore
+.git
+.gitignore
+
+# Environment & Virtual Environments
+.env
+.env.*
+.venv/
+env/
+venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data and training/testing artifacts (keep deployment bundle light)
+data/
+test_*.py
+*test*.py
+tests/
+train_model.py
+
+# System files
+.DS_Store
+.idea/
+.vscode/
+
+# Explicitly ensure required runtime components are included
+!models/
+!models/*.joblib
+!templates/
+!templates/*
+!static/
+!static/*

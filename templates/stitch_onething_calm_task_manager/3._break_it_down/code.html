@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OneThing - Break It Down</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#e2d7ff",
+            "on-secondary-fixed-variant": "#4a4262",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-container": "#805d3f",
+            "outline-variant": "#c1c8c3",
+            "tertiary": "#66452a",
+            "on-error": "#ffffff",
+            "outline": "#727974",
+            "on-background": "#1b1c1a",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#c6ead8",
+            "on-secondary-fixed": "#1e1734",
+            "on-error-container": "#93000a",
+            "surface-tint": "#446557",
+            "secondary": "#625a7b",
+            "on-tertiary-fixed-variant": "#5f4024",
+            "secondary-fixed-dim": "#ccc1e8",
+            "surface-container": "#efeeeb",
+            "on-primary-fixed": "#002116",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#2d1601",
+            "inverse-on-surface": "#f2f0ed",
+            "primary-fixed-dim": "#abcebe",
+            "surface-container-high": "#eae8e5",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#c6ebd9",
+            "on-tertiary-container": "#ffdbc0",
+            "inverse-primary": "#abcebe",
+            "surface": "#fbf9f6",
+            "on-surface-variant": "#414844",
+            "primary": "#325346",
+            "tertiary-fixed-dim": "#ebbe9a",
+            "secondary-fixed": "#e8ddff",
+            "inverse-surface": "#30312f",
+            "error": "#ba1a1a",
+            "background": "#fbf9f6",
+            "on-secondary-container": "#645c7e",
+            "primary-container": "#4a6b5d",
+            "surface-bright": "#fbf9f6",
+            "tertiary-fixed": "#ffdcc2",
+            "surface-container-highest": "#e4e2df",
+            "on-surface": "#1b1c1a",
+            "surface-variant": "#e4e2df",
+            "on-primary-fixed-variant": "#2d4d40",
+            "surface-dim": "#dbdad7"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1.25rem",
+            "space-sm": "0.75rem",
+            "margin": "3rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem",
+            "space-xl": "3.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xs": "0.375rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "label-md": ["Quicksand"],
+            "display-mobile": ["Quicksand"],
+            "body-sm": ["Nunito Sans"],
+            "label-sm": ["Quicksand"],
+            "label-lg": ["Quicksand"],
+            "headline-sm": ["Quicksand"],
+            "body-lg": ["Nunito Sans"],
+            "headline-lg-mobile": ["Quicksand"],
+            "display": ["Quicksand"],
+            "headline-md": ["Quicksand"],
+            "headline-lg": ["Quicksand"],
+            "body-md": ["Nunito Sans"]
+          },
+          "fontSize": {
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "display-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+            "label-lg": ["15px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "headline-sm": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "display": ["40px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "headline-md": ["22px", {"lineHeight": "30px", "fontWeight": "600"}],
+            "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .soft-shadow {
+      box-shadow: 0 8px 32px -4px rgba(74, 107, 93, 0.05), 0 2px 8px -2px rgba(45, 52, 54, 0.03);
+    }
+    .lift-shadow {
+      box-shadow: 0 16px 40px -8px rgba(123, 114, 149, 0.08), 0 4px 12px -2px rgba(45, 52, 54, 0.02);
+    }
+    .pulse-glow {
+      animation: pulseBreath 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulseBreath {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.02); }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Anchor (Shared Component: TopAppBar with context adapt) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-gutter-mobile md:px-gutter max-w-2xl mx-auto h-16 bg-surface/80 backdrop-blur-md">
+<button aria-label="Go back" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container transition-colors duration-300 active:scale-95" type="button">
+<span class="material-symbols-outlined text-primary text-xl">arrow_back</span>
+</button>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base" data-icon="spa">spa</span>
+<h1 class="text-headline-sm font-headline-sm text-primary tracking-tight font-bold">Let's make it lighter</h1>
+</div>
+<button aria-label="Restorative breathing pause" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors duration-300 active:scale-95" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="air">air</span>
+</button>
+</header>
+<!-- Main Focus Sanctuary Well -->
+<main class="flex-1 w-full max-w-[680px] mx-auto pt-20 pb-28 px-gutter-mobile md:px-gutter flex flex-col gap-space-md">
+<!-- Context Ribbon: Original Overwhelming Task -->
+<div class="w-full bg-surface-container-low rounded-2xl p-space-sm md:p-space-md flex items-center justify-between gap-3 border border-outline-variant/30">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">filter_vintage</span>
+</div>
+<div class="truncate">
+<span class="block text-label-sm font-label-sm text-outline uppercase tracking-wider">Original Task</span>
+<p class="text-body-sm font-body-sm text-on-surface font-semibold truncate">Write opening sentence for Sociology reflection</p>
+</div>
+</div>
+<span class="shrink-0 text-label-xs font-label-sm text-primary bg-primary-fixed/50 px-2.5 py-1 rounded-full border border-primary/10">Felt heavy</span>
+</div>
+<!-- AI Empathy Comfort Prompt Card -->
+<div class="w-full bg-gradient-to-br from-surface-container-lowest via-surface to-secondary-fixed/20 rounded-3xl p-5 md:p-6 border border-outline-variant/40 lift-shadow relative overflow-hidden">
+<!-- Soft ambient backdrop bloom -->
+<div class="absolute -right-12 -top-12 w-36 h-36 bg-secondary-container/30 rounded-full blur-2xl pointer-events-none pulse-glow"></div>
+<div class="flex items-start gap-3.5 relative z-10">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-xl">self_improvement</span>
+</div>
+<div class="space-y-1">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-secondary text-label-sm font-label-sm font-medium">
+<span>Gentle breakdown</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<p class="text-body-lg font-body-lg text-on-surface leading-snug pt-1">
+            No problem at all! Let’s slice this into even tinier pieces. Which of these feels easiest right now?
+          </p>
+</div>
+</div>
+</div>
+<!-- Micro-Steps Choice Well (Bento-like tactile cards) -->
+<div aria-label="Micro-steps selection" class="w-full flex flex-col gap-3" role="radiogroup">
+<!-- Step 1: Active Recommendation Selection -->
+<div class="group relative bg-surface-container-lowest rounded-3xl p-5 border-2 border-primary-container soft-shadow transition-all duration-300 hover:shadow-md cursor-pointer" id="step-1">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3.5">
+<!-- Concentric Radio Indicator for "Do this first" -->
+<div class="mt-1 w-6 h-6 rounded-full border-2 border-primary-container flex items-center justify-center shrink-0 bg-surface-container-lowest">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+</div>
+<div class="space-y-2">
+<div class="flex flex-wrap items-center gap-2">
+<span class="text-label-md font-label-md text-primary font-bold">Step 1</span>
+<span class="inline-flex items-center gap-1 bg-on-primary-container/40 text-primary px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-xs">recommend</span>
+                  Do this first
+                </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface font-semibold leading-relaxed">
+                Open laptop and create a blank doc titled "Sociology"
+              </p>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline">
+<span class="material-symbols-outlined text-sm">cloud_download</span>
+<span>Takes 30 seconds · No brain power needed</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container opacity-80 group-hover:translate-x-0.5 transition-transform text-lg shrink-0">check_circle</span>
+</div>
+</div>
+<!-- Step 2: Peaceful alternative -->
+<div class="group relative bg-surface-container-lowest/80 hover:bg-surface-container-lowest rounded-3xl p-5 border border-outline-variant/30 soft-shadow transition-all duration-300 cursor-pointer hover:border-outline-variant" id="step-2">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3.5">
+<div class="mt-1 w-6 h-6 rounded-full border-2 border-outline-variant/80 flex items-center justify-center shrink-0 bg-surface">
+<div class="w-2.5 h-2.5 rounded-full bg-transparent group-hover:bg-outline-variant/40 transition-colors"></div>
+</div>
+<div class="space-y-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold">Step 2</span>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+                Paste the assignment prompt at the top so you don’t have to think
+              </p>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline">
+<span class="material-symbols-outlined text-sm">content_paste</span>
+<span>Just copy &amp; paste</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant opacity-40 group-hover:opacity-80 transition-opacity text-lg shrink-0">radio_button_unchecked</span>
+</div>
+</div>
+<!-- Step 3: Low friction expression -->
+<div class="group relative bg-surface-container-lowest/80 hover:bg-surface-container-lowest rounded-3xl p-5 border border-outline-variant/30 soft-shadow transition-all duration-300 cursor-pointer hover:border-outline-variant" id="step-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3.5">
+<div class="mt-1 w-6 h-6 rounded-full border-2 border-outline-variant/80 flex items-center justify-center shrink-0 bg-surface">
+<div class="w-2.5 h-2.5 rounded-full bg-transparent group-hover:bg-outline-variant/40 transition-colors"></div>
+</div>
+<div class="space-y-2">
+<span class="text-label-md font-label-md text-on-surface-variant font-bold">Step 3</span>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+                Jot down 3 messy words about how you feel about the lecture
+              </p>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline">
+<span class="material-symbols-outlined text-sm">draw</span>
+<span>Spelling doesn't count</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant opacity-40 group-hover:opacity-80 transition-opacity text-lg shrink-0">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<!-- Restorative Grounding Prompt & Action Area -->
+<div class="mt-2 flex flex-col items-center gap-4 text-center">
+<div class="w-full">
+<button class="w-full py-4 px-7 rounded-full bg-primary-container text-on-tertiary text-label-lg font-label-lg font-semibold tracking-wide shadow-md hover:bg-primary transition-all duration-300 hover:-translate-y-0.5 active:scale-98 flex items-center justify-center gap-2" type="button">
+<span>Start with Step 1</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="flex items-center justify-center gap-2 text-on-surface-variant/80 px-4 py-2 rounded-full bg-surface-container/60">
+<span class="material-symbols-outlined text-secondary text-sm">cloud</span>
+<p class="text-body-sm font-body-sm italic">
+          You only ever have to do one tiny piece at a time.
+        </p>
+</div>
+</div>
+</main>
+<!-- Shared Bottom Navigation Bar (Shared Component: BottomNavBar, Focus Active) -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-gutter-mobile py-space-xs max-w-md mx-auto bg-surface-container-lowest/90 backdrop-blur-lg rounded-t-lg shadow-sm">
+<!-- Dump Tab (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="edit_note">edit_note</span>
+<span class="text-label-sm font-label-sm mt-0.5">Dump</span>
+</a>
+<!-- Focus Tab (ACTIVE - Semantic Lock on primary experience) -->
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-full px-5 py-1.5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="radio_button_checked" data-weight="fill" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+<span class="text-label-sm font-label-sm font-bold mt-0.5">Focus</span>
+</a>
+<!-- Reflect Tab (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1.5 transition-all duration-300 hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="nightlight">nightlight</span>
+<span class="text-label-sm font-label-sm mt-0.5">Reflect</span>
+</a>
+</nav>
+<!-- Interactive script for gentle step selection toggle -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const steps = [
+        { id: 'step-1', num: '1', title: 'Open laptop and create a blank doc titled "Sociology"' },
+        { id: 'step-2', num: '2', title: 'Paste the assignment prompt at the top' },
+        { id: 'step-3', num: '3', title: 'Jot down 3 messy words about how you feel' }
+      ];
+
+      const ctaBtn = document.querySelector('button.bg-primary-container');
+
+      steps.forEach((stepItem) => {
+        const card = document.getElementById(stepItem.id);
+        if (!card) return;
+
+        card.addEventListener('click', () => {
+          // Reset all
+          steps.forEach(s => {
+            const el = document.getElementById(s.id);
+            if (el) {
+              el.classList.remove('border-2', 'border-primary-container');
+              el.classList.add('border', 'border-outline-variant/30');
+              const radioDot = el.querySelector('.w-3, .w-2\\.5');
+              if (radioDot) {
+                radioDot.className = 'w-2.5 h-2.5 rounded-full bg-transparent group-hover:bg-outline-variant/40 transition-colors';
+              }
+              const icon = el.querySelector('span.material-symbols-outlined:last-child');
+              if (icon) {
+                icon.textContent = 'radio_button_unchecked';
+                icon.className = 'material-symbols-outlined text-outline-variant opacity-40 group-hover:opacity-80 transition-opacity text-lg shrink-0';
+              }
+            }
+          });
+
+          // Activate selected
+          card.classList.remove('border', 'border-outline-variant/30');
+          card.classList.add('border-2', 'border-primary-container');
+          const activeDot = card.querySelector('.w-2\\.5, .w-3');
+          if (activeDot) {
+            activeDot.className = 'w-3 h-3 rounded-full bg-primary-container';
+          }
+          const activeIcon = card.querySelector('span.material-symbols-outlined:last-child');
+          if (activeIcon) {
+            activeIcon.textContent = 'check_circle';
+            activeIcon.className = 'material-symbols-outlined text-primary-container opacity-80 group-hover:translate-x-0.5 transition-transform text-lg shrink-0';
+          }
+
+          // Update CTA
+          if (ctaBtn) {
+            ctaBtn.querySelector('span:first-child').textContent = `Start with Step ${stepItem.num}`;
+          }
+        });
+      });
+    });
+  </script>
+</body></html>
